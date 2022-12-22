@@ -1,0 +1,40 @@
+@import url(./nav-bar/nav-bar.component.scss);
+@import url(./bottom-left/bottom-left.component.scss);
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Segoe", "Segoe UI", "Arial", "sans-serif";
+}
+
+.container {
+  width: 100%;
+  font-weight: 500;
+  height: 100%;
+  font-size: 1.4rem;
+  background-color: #faf9f8;
+
+  .bottom-container {
+    width: 100vw;
+    min-height: 93vh;
+    display: inline-block;
+
+    .strike {
+      text-decoration: line-through;
+    }
+
+    .left-container-hide {
+      display: none;
+    }
+  }
+}
+
+
+
+::-webkit-scrollbar-thumb {
+  background: #edebe9;
+  border-radius: 5px;
+}

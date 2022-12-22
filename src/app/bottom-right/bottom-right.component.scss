@@ -1,0 +1,129 @@
+.bottom-container .right-container {
+  width: 23.43vw;
+  display: inline-block;
+  border-left: 1px solid #7c7d7f77;
+  height: calc(100vh - 3rem);
+  vertical-align: top;
+  box-shadow: 0px 1.2px 3.6px #0000001a, 0px 6.4px 14.4px #0000001a;
+
+  .inside-right-container {
+    margin-top: 1rem;
+    padding: 0 1rem 0 1.5rem;
+    margin-top: 1rem;
+    height: calc(100vh - 7.57rem);
+    font-size: 14px;
+
+    .task-details {
+      width: 17.5rem;
+      height: auto;
+      min-height: 1.25rem;
+      padding: .95rem;
+      border-radius: .2rem;
+      font-size: 1rem;
+      background: white;
+      color: #292827;
+
+      &:hover {
+        background: transparent;
+      }
+
+      #task-id {
+        display: none;
+      }
+
+      .icon-color {
+        color: #2564cf;
+      }
+
+      div {
+        display: inline-block;
+        width: 6%;
+      }
+
+      .task-details-name {
+        width: 72%;
+        padding: 0 1rem;
+      }
+
+      .content {
+        width: 84%;
+        padding-left: 1rem;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .add-step {
+      color: #2564cf;
+    }
+
+    .separate {
+      margin: .5rem 0;
+    }
+
+    .fa-tag {
+      transform: scale(-1, 1);
+    }
+
+    .add-note {
+      width: calc(96% - 2rem);
+      min-height: 2.65rem;
+      height: auto;
+      padding: 1rem;
+      border: none;
+      outline: none;
+      line-height: 1;
+      font-size: 14px;
+    }
+
+    ul {
+      list-style: none;
+      margin: .5rem 0;
+
+      li {
+        border-bottom: 1px solid #e1dfdd;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  .detailed-footer {
+    position: fixed;
+    bottom: 0;
+    height: 3.57rem;
+    background: white;
+    width: 20.43vw;
+    margin: 0 1.5rem;
+    border-top: .5px solid #7c7d7f61;
+
+    div {
+      display: inline-block;
+      font-size: 1rem;
+    }
+
+    .detailed-footer-left {
+      width: 13%;
+    }
+
+    .detailed-footer-center {
+      text-align: center;
+      width: 70%;
+      line-height: 4.7;
+      font-weight: 400;
+      font-size: .75rem;
+      color: #605e5c;
+    }
+
+    .detailed-footer-right {
+      text-align: right;
+      width: 10%;
+    }
+  }
+}
+
+.right-container-hide {
+  display: none;
+}

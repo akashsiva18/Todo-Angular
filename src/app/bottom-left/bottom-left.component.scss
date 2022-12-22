@@ -1,0 +1,163 @@
+.left-container {
+  width: 18.945vw;
+  display: inline-block;
+  border-right: 0.5px solid #7c7d7f61;
+  background-color: #ffffff;
+  vertical-align: top;
+  height: calc(100vh - 3rem);
+
+  i {
+    width: 1.8rem;
+    cursor: pointer;
+  }
+
+
+  .default-menu-block {
+    .side-bar-head {
+      margin-top: .875rem;
+      height: 3rem;
+      padding: 0 1.5rem;
+      padding-top: 6px;
+      opacity: 0.5;
+    }
+
+    .default-menu-ended {
+      margin: .5rem 1rem 0;
+      border-bottom: .05px solid #7c7d7f61;
+      margin-bottom: 1rem;
+      pointer-events: none;
+    }
+
+    .default-and-custom-menu {
+      overflow-y: auto;
+      line-height: 3;
+      list-style: none;
+      margin-bottom: .4rem;
+      height: auto;
+      max-height: 31.5rem;
+
+      i {
+        pointer-events: none;
+        width: 1.8rem;
+      }
+
+      li {
+        &:hover {
+          cursor: pointer;
+        }
+
+        p {
+          display: inline-block;
+          pointer-events: none;
+          width: 80%;
+        }
+
+        .count {
+          width: auto;
+          display: inline-block;
+          text-align: right;
+          height: 1rem;
+          pointer-events: none;
+        }
+      }
+
+      .selected-menu {
+        background-color: #eef7ff;
+        font-weight: bold;
+        border-left: 3px solid #2564cf;
+        padding-left: 1.6rem;
+      }
+    }
+
+
+    &::-webkit-scrollbar {
+      width: .5rem;
+      border-radius: 100%;
+    }
+  }
+}
+
+.default-menu-block .default-menu,
+.default-add-menu,
+ul .selected-menu {
+  height: 2.75rem;
+  padding: 0 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #292827;
+}
+
+.default-add-menu {
+  padding-right: 0;
+  color: #2564cf;
+
+  div {
+    display: inline-block;
+    margin-left: 1rem;
+    line-height: 3;
+  }
+}
+
+.default-add-menu:hover {
+  background-color: #f5f5f5;
+}
+
+.custom-task-block {
+  ul {
+    li {
+      div {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.default-menu {
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  .create-group-block {
+    width: 12%;
+    padding-left: 1rem;
+  }
+}
+
+.new-List-Bar {
+  width: 65%;
+  border: none;
+  outline: none;
+  height: 1.5rem;
+  background: transparent;
+
+  &::placeholder {
+    color: #2564cf;
+  }
+
+  &:focus {
+    &::placeholder {
+      color: #808080;
+    }
+  }
+}
+
+.options-block {
+  position: fixed;
+  background-color: #ffffff;
+  bottom: 0;
+  height: 45px;
+  width: 18.945vw;
+
+  div {
+    width: 20%;
+    height: 3rem;
+    text-align: center;
+    display: inline-block;
+    line-height: 2;
+    font-size: 1rem;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}
