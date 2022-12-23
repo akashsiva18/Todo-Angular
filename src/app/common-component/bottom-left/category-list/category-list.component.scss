@@ -1,0 +1,70 @@
+.default-and-custom-menu {
+  overflow-y: auto;
+  line-height: 3;
+  list-style: none;
+  margin-bottom: .4rem;
+  height: auto;
+  max-height: 31.5rem;
+
+  i {
+    pointer-events: none;
+    width: 1.8rem;
+  }
+
+  li {
+    &:hover {
+      cursor: pointer;
+    }
+
+    p {
+      display: inline-block;
+      pointer-events: none;
+      width: 80%;
+    }
+
+    .count {
+      width: auto;
+      display: inline-block;
+      text-align: right;
+      height: 1rem;
+      pointer-events: none;
+    }
+  }
+
+  .selected-menu {
+    background-color: #eef7ff;
+    font-weight: bold;
+    border-left: 3px solid #2564cf;
+    padding-left: 1.6rem;
+  }
+
+  .default-add-menu {
+    padding-right: 0;
+    color: #2564cf;
+
+    div {
+      display: inline-block;
+      margin-left: 1rem;
+      line-height: 3;
+    }
+  }
+
+  .default-add-menu:hover {
+    background-color: #f5f5f5;
+  }
+
+  .default-menu {
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  .default-menu,
+  ul .selected-menu {
+    height: 2.75rem;
+    padding: 0 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #292827;
+  }
+}

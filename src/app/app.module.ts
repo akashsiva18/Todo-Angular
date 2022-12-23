@@ -3,26 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
-import { SearchBarComponent } from './search-bar/search-bar.component';
-import { BottomLeftComponent } from './bottom-left/bottom-left.component';
-import { BottomCenterComponent } from './bottom-center/bottom-center.component';
-import { BottomRightComponent } from './bottom-right/bottom-right.component';
+import { GlobalComponentModule } from './global-component/global-component.module';
+import { CommonComponentModule } from './common-component/common-component.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavBarComponent,
-    SearchBarComponent,
-    BottomLeftComponent,
-    BottomCenterComponent,
-    BottomRightComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    GlobalComponentModule,
+    CommonComponentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

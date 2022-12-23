@@ -1,0 +1,7 @@
+<ul class="default-and-custom-menu">
+  <li *ngFor="let category of categories" class="default-menu">
+    <i class={{category.iconClass}}></i>
+    <p>{{category.name}}</p>
+    <div class="count">{{category.count}}</div>
+  </li>
+</ul>
