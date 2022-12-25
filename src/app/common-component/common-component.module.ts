@@ -4,13 +4,15 @@ import { BottomCenterComponent } from './bottom-center/bottom-center.component';
 import { BottomLeftComponent } from './bottom-left/bottom-left.component';
 import { BottomRightComponent } from './bottom-right/bottom-right.component';
 import { CategoryListComponent } from './bottom-left/category-list/category-list.component';
+import { CommonComponent } from './common-component.component';
 
 @NgModule({
   declarations: [
     BottomCenterComponent,
     BottomLeftComponent,
     BottomRightComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    CommonComponent
   ],
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { CategoryListComponent } from './bottom-left/category-list/category-list
   exports: [
     BottomCenterComponent,
     BottomLeftComponent,
-    BottomRightComponent
+    BottomRightComponent,
+    CommonComponent
   ]
 })
 export class CommonComponentModule { }

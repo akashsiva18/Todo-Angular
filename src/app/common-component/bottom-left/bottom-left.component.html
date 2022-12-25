@@ -3,11 +3,13 @@
     <div class="side-bar-head">
       <i class="fa-solid fa-bars" id="left-menu"></i>
     </div>
-    <app-category-list></app-category-list>
+
+    <app-category-list [categories]="categories" (onSelected)="onSelected($event)"></app-category-list>
+
   </div>
   <div class="default-add-menu">
     <i class="fa-solid fa-plus"></i>
-    <input type="text" class="new-List-Bar" placeholder="New list" required>
+    <input type="text" class="new-List-Bar" placeholder="New list" required (keypress)="addCategory($event)">
     <div class="create-group-block">
       <i class="fa-solid fa-file-circle-plus"></i>
     </div>
