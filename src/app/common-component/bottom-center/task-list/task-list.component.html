@@ -1,0 +1,11 @@
+<ul class="added-task">
+  <li *ngFor="let task of pendingTasks">
+      <i class="fa-regular fa-circle"></i>
+      <div class="task-name">
+        <p class="hide-task-id">{{task.id}}</p>
+        <p>{{task.name}}</p>
+        <p class="type-of-task">Tasks</p>
+      </div>
+      <div class="important"><i class="fa-regular fa-star"></i></div>
+  </li>
+</ul>

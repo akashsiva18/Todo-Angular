@@ -1,4 +1,3 @@
-
 <div class="center-container">
   <div class="title-and-Other-block">
     <div class="title-block">
@@ -23,7 +22,8 @@
     <button>
       <i class="fa-solid fa-plus" id="add-task-icon"></i>
     </button>
-    <input type="text" class="add-task-input" placeholder="Add a task" required>
+    <input type="text" class="add-task-input" placeholder="Add a task" required 
+      (keydown.enter)="addTask($event)" (keydown.enter)="pendingTask.renderPendingTask()" >
   </div>
   <div class="add-task-option-bar">
     <div class="add-task-option">
@@ -36,13 +36,14 @@
     </div>
   </div>
   <div class="task-container">
-    <ul class="added-task">
-    </ul>
+
+    <app-task-list [tasks]="tasks" [titleName]="categoryName" #pendingTask></app-task-list>
     <div id="completed-hide">
       <i class="fa-solid fa-angle-right"></i>
       <div>Completed</div>
       <div id="completed-task-count"></div>
     </div>
+    <app-task-list></app-task-list>
     <ul class="completed-task-hide">
     </ul>
   </div>

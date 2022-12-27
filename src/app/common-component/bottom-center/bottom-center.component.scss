@@ -175,10 +175,6 @@
           margin-left: 1rem;
         }
       }
-
-
-
-
     }
 
     .add-button {
@@ -201,18 +197,6 @@
 
     &::-webkit-scrollbar {
       width: .5rem;
-    }
-
-    .added-task {
-      list-style: none;
-
-      div {
-        pointer-events: none;
-      }
-
-      i {
-        pointer-events: all;
-      }
     }
 
     .completed-task {
@@ -276,70 +260,5 @@
       }
     }
 
-  }
-
-  ul {
-    li {
-
-      width: 97%;
-      margin-top: 12px;
-      font-size: .9rem;
-      font-weight: 400;
-      color: #605e5c;
-      line-height: 1.2;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
-
-      div {
-        display: inline-block;
-        width: 47.2%;
-      }
-
-      i {
-        font-size: 1.1rem;
-        padding: .5rem;
-        margin-left: .9rem;
-        margin-right: .7rem;
-        border-radius: .05rem;
-        line-height: 1.1;
-        color: #2564cf;
-      }
-
-      .task-name {
-        .hide-task-d {
-          display: none;
-        }
-      }
-
-      .important {
-        text-align: right;
-        pointer-events: none;
-
-        i {
-          pointer-events: all;
-        }
-      }
-
-      .important-middle {
-        width: 45.2%;
-      }
-
-      .task-name {
-        position: relative;
-        top: .5rem;
-        pointer-events: none;
-
-        .type-of-task {
-          font-size: .8rem;
-        }
-
-        .hide-task-id {
-          display: none;
-        }
-
-      }
-    }
   }
 }

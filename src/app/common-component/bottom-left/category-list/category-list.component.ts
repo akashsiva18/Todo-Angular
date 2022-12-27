@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Category } from 'src/app/category';
 
 @Component({
@@ -6,15 +6,23 @@ import { Category } from 'src/app/category';
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.scss']
 })
-export class CategoryListComponent {
-  public selectedCategory?:String;
+export class CategoryListComponent implements OnInit {
 
-  @Input() categories?:Category[];
+  @Input() public selectedCategory?: String;
 
+  @Input() categories?: Category[];
+  
   @Output() onSelected = new EventEmitter<any>();
 
-  onSelectCategory(category:Category) {
-    this.selectedCategory= category.name;
+  @Output() renderPendingTask = new EventEmitter<any>();
+
+  ngOnInit(): void {
+    this.selectedCategory = "My Day";
+  }
+
+  onSelectCategory(category: Category) {
+    this.selectedCategory = category.name;
     this.onSelected.emit(category.name);
+    this.renderPendingTask.emit;
   }
 }

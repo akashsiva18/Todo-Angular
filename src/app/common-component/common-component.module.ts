@@ -5,6 +5,7 @@ import { BottomLeftComponent } from './bottom-left/bottom-left.component';
 import { BottomRightComponent } from './bottom-right/bottom-right.component';
 import { CategoryListComponent } from './bottom-left/category-list/category-list.component';
 import { CommonComponent } from './common-component.component';
+import { TaskListComponent } from './bottom-center/task-list/task-list.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { CommonComponent } from './common-component.component';
     BottomLeftComponent,
     BottomRightComponent,
     CategoryListComponent,
-    CommonComponent
+    CommonComponent,
+    TaskListComponent
   ],
   imports: [
     CommonModule

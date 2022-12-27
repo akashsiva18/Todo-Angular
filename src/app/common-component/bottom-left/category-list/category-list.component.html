@@ -1,6 +1,6 @@
-<ul class="default-and-custom-menu">
+<ul class="default-and-custom-menu" #name>
   <div *ngFor="let category of categories">
-    <li class="default-menu" (click)="onSelectCategory(category)">
+    <li [ngClass]="{'selected-menu':category.name === selectedCategory,'default-menu':category.name !== selectedCategory}" (click)="onSelectCategory(category)">
       <i class={{category.iconClass}}></i>
       <p>{{category.name}}</p>
       <div class="count" *ngIf="category.count > 0">{{category.count}}</div>

@@ -6,6 +6,10 @@
   height: auto;
   max-height: 31.5rem;
 
+  &::-webkit-scrollbar {
+    width: .5rem;
+  }
+
   i {
     pointer-events: none;
     width: 1.8rem;
@@ -60,7 +64,7 @@
   }
 
   .default-menu,
-  ul .selected-menu {
+  .selected-menu {
     height: 2.75rem;
     padding: 0 1.75rem;
     font-size: 0.875rem;

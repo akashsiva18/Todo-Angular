@@ -1,4 +1,6 @@
-import { Component, OnInit, Output } from "@angular/core";
+import { AfterViewInit, Component, OnInit, Output, QueryList, ViewChildren } from "@angular/core";
+import { BottomLeftComponent } from "./bottom-left/bottom-left.component";
+import { BottomCenterComponent } from "./bottom-center/bottom-center.component";
 
 @Component({
   selector: "app-common-Component",
@@ -7,14 +9,23 @@ import { Component, OnInit, Output } from "@angular/core";
 
 export class CommonComponent implements OnInit {
 
-  public selectedCategoryName?:string;
+  public selectedCategoryName?: string;
 
-  constructor() {}
+  @ViewChildren(BottomCenterComponent)
+  bottomCenterComponent!: QueryList<BottomCenterComponent>;
 
-  ngOnInit(): void {}
+  constructor() { }
 
-  getSelectedCategoryName(name:string) {
+  ngOnInit(): void { }
+
+  getSelectedCategoryName(name: string) {
     this.selectedCategoryName = name;
+    this.bottomCenterComponent.forEach(method => {
+      method.taskListComponent.forEach(element=> {
+        element.renderPendingTask();
+        console.log("grandParent");
+      })
+    })
   }
-  
+
 }
