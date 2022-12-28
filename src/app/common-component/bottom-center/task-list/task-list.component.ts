@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Task } from 'src/app/task';
 
 @Component({
@@ -6,26 +6,19 @@ import { Task } from 'src/app/task';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent {
 
   @Input() tasks: Task[] = [];
   @Input() titleName = "";
-  public pendingTasks: Task[] = [];
+  @Input() pendingTasks!: Task[];
 
-  ngOnInit(): void {
-    this.renderPendingTask();
-  }
-  constructor(private element: ElementRef) {}
-
-  public renderPendingTask() {
-    this.pendingTasks = [];
-    this.tasks.forEach(task => {
-      task.category.forEach(category => {
-        console.log(category);
-        if (category === this.titleName) {
-          this.pendingTasks.push(task);        }
-      });
-    });
+  importantStatus(event:any) {
+    if(event.target.className == "fa-regular fa-star") {
+      event.target.className = "fa-solid fa-star";
+    } else {
+      event.target.className = "fa-regular fa-star";
+    }
   }
 
+  
 }

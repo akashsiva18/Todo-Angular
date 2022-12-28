@@ -14,8 +14,6 @@ export class CategoryListComponent implements OnInit {
   
   @Output() onSelected = new EventEmitter<any>();
 
-  @Output() renderPendingTask = new EventEmitter<any>();
-
   ngOnInit(): void {
     this.selectedCategory = "My Day";
   }
@@ -23,6 +21,5 @@ export class CategoryListComponent implements OnInit {
   onSelectCategory(category: Category) {
     this.selectedCategory = category.name;
     this.onSelected.emit(category.name);
-    this.renderPendingTask.emit;
   }
 }

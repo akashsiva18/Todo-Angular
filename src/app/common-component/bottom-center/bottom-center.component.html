@@ -23,7 +23,7 @@
       <i class="fa-solid fa-plus" id="add-task-icon"></i>
     </button>
     <input type="text" class="add-task-input" placeholder="Add a task" required 
-      (keydown.enter)="addTask($event)" (keydown.enter)="pendingTask.renderPendingTask()" >
+      (keydown.enter)="addTask($event)" >
   </div>
   <div class="add-task-option-bar">
     <div class="add-task-option">
@@ -37,7 +37,7 @@
   </div>
   <div class="task-container">
 
-    <app-task-list [tasks]="tasks" [titleName]="categoryName" #pendingTask></app-task-list>
+    <app-task-list [pendingTasks]="pendingTasks" [titleName]="categoryName"></app-task-list>
     <div id="completed-hide">
       <i class="fa-solid fa-angle-right"></i>
       <div>Completed</div>

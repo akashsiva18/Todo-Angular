@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, OnInit, Output } from '@angular/core';
 import { Category } from 'src/app/category';
 
 @Component({
@@ -7,21 +7,24 @@ import { Category } from 'src/app/category';
   styleUrls: ['./bottom-left.component.scss']
 })
 
-export class BottomLeftComponent implements OnInit {
+export class BottomLeftComponent implements OnInit, DoCheck {
 
   constructor() { }
   public category?: Category;
   @Output() selectedCategoryName = new EventEmitter<string>();
-
-  @Output() renderPendingTask = new EventEmitter<any>();
-
-  public selectedCategory?:String;
+  public selectedCategory?: String;
+  @Output() categoryList = new EventEmitter<Category[]>();
+  public categoryName = "";
 
   ngOnInit(): void {
   }
 
+  ngDoCheck(): void {
+    this.categoryList.emit(this.categories);
+  }
+
   public categories: Category[] = [
-    { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 10, isLastDefaultCategory: false, isDefaultCategory: true },
+    { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
     { id: 2, name: "Important", iconClass: "fa-regular fa-star", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
     { id: 3, name: "planned", iconClass: "fa-regular fa-calendar", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
     { id: 4, name: "Assigned to Me", iconClass: "fa-solid fa-user", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
@@ -30,9 +33,14 @@ export class BottomLeftComponent implements OnInit {
 
   addCategory(event: any) {
     if (event.key == "Enter") {
+      this.categoryName = event.target.value;
+      let count = this.countExistCategory(this.categoryName);
+      if (count > 0) {
+        this.categoryName = this.categoryName + " (" + count + ")";
+      }
       this.category = {
         id: this.categories.length,
-        name: event.target.value,
+        name: this.categoryName,
         iconClass: "fa-solid fa-list",
         isDefaultCategory: false,
         isLastDefaultCategory: false,
@@ -45,12 +53,17 @@ export class BottomLeftComponent implements OnInit {
     }
   }
 
+  countExistCategory(name: String) {
+    var count = 0;
+    this.categories.forEach(category => {
+      if (category.name.split(" (", 1)[0] === name) {
+        count++;
+      }
+    });
+    return count;
+  }
+
   onSelected(categoryTitle: string) {
     this.selectedCategoryName.emit(categoryTitle);
   }
-
-  renderPendingTaskFunction() {
-    this.renderPendingTask.emit();
-  }
-
 }

@@ -35,6 +35,15 @@
     }
   }
 
+  .default-menu,
+  .selected-menu {
+    height: 2.75rem;
+    padding: 0 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #292827;
+  }
+
   .selected-menu {
     background-color: #eef7ff;
     font-weight: bold;
@@ -63,14 +72,6 @@
     }
   }
 
-  .default-menu,
-  .selected-menu {
-    height: 2.75rem;
-    padding: 0 1.75rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    color: #292827;
-  }
 }
 
 .default-menu-ended {
