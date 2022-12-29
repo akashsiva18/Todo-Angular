@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from 'src/app/task';
 
 @Component({
@@ -10,15 +10,41 @@ export class TaskListComponent {
 
   @Input() tasks: Task[] = [];
   @Input() titleName = "";
-  @Input() pendingTasks!: Task[];
+  @Input() renderTasks!: Task[];
+  @Output() selectedTask = new EventEmitter<Task>();
 
-  importantStatus(event:any) {
-    if(event.target.className == "fa-regular fa-star") {
-      event.target.className = "fa-solid fa-star";
+  importantStatus(event: any, task: Task) {
+    if (this.hasClass(event, "fa-regular fa-star")) {
+      task.isImportant = true;
+      task.category.push("Important");
     } else {
-      event.target.className = "fa-regular fa-star";
+      task.isImportant = false;
+      let index = task.category.indexOf('Important');
+      task.category.splice(index, 1);
     }
   }
 
-  
+  completedIconHover(event: any) {
+    if (this.hasClass(event, "fa-regular fa-circle")) {
+      event.target.className = "fa-regular fa-circle-check";
+    } else if (this.hasClass(event,"fa-regular fa-circle-check")) {
+      event.target.className = "fa-regular fa-circle";
+    }
+  }
+
+  changeCompletedStatus(event: any, task: Task) {
+    if (this.hasClass(event, "fa-regular fa-circle-check")) {
+      task.isCompleted = true;
+    } else {
+      task.isCompleted = false;
+    }
+  }
+
+  getSelectedTask(task:Task) {
+    this.selectedTask.emit(task);
+  }
+
+  hasClass(event: any, className: string) {
+    return event.target.className === className;
+  }
 }

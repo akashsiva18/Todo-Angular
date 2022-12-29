@@ -1,8 +1,8 @@
 export interface Task {
-  id:Number;
-  name:String;
-  category:String[];
-  note:String;
-  isImportant:Boolean;
-  isCompleted:Boolean;
+  id:number;
+  name:string;
+  category:string[];
+  note:string;
+  isImportant:boolean;
+  isCompleted:boolean;
 }

@@ -1,6 +1,5 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { Task } from 'src/app/task';
-import { TaskListComponent } from './task-list/task-list.component';
 import { Category } from 'src/app/category';
 
 @Component({
@@ -10,47 +9,54 @@ import { Category } from 'src/app/category';
 })
 export class BottomCenterComponent implements OnInit, DoCheck {
 
-  @Input() public categoryTitle?: String;
+  @Input() public categoryTitle = "";
   @Input() public categoryList!: Category[];
+  @Output() selectedTask = new EventEmitter<Task>();
   public tasks: Task[] = [];
   public pendingTasks: Task[] = [];
-  public categoryName = "";
-  public task?: Task;
-  public noOfDefaultCategory = 5;
+  public completedTasks: Task[] = [];
+  public isImportantTask = false;
+  public hideCompletedTask = true;
+  public currentDate = new Date();
 
   ngOnInit(): void {
     this.categoryTitle = "My Day"
     this.renderPendingTask();
+    this.renderCompletedTask();
   }
 
   ngDoCheck(): void {
     this.renderPendingTask();
+    this.renderCompletedTask();
   }
 
   public addTask(event: any) {
-    if (this.categoryTitle !== undefined) {
-      this.categoryName = this.categoryTitle.toString();
-    }
-    let categories = [this.categoryName];
-    if (this.categoryName !== "Tasks" && this.isDefaultTask(this.categoryName)) {
+    let task: Task;
+    let categories = [this.categoryTitle];
+    if (this.categoryTitle !== "Tasks" && this.isDefaultTask(this.categoryTitle)) {
       categories.push("Tasks");
     }
-    this.task = {
+    if (this.categoryTitle === "Important") {
+      this.isImportantTask = true;
+    } else {
+      this.isImportantTask = false;
+    }
+    task = {
       id: this.tasks.length + 1,
       category: categories,
       name: event.target.value,
       note: "",
-      isImportant: false,
+      isImportant: this.isImportantTask,
       isCompleted: false
     }
-    this.tasks.unshift(this.task);
-    console.log(this.tasks);
+    this.tasks.unshift(task);
     event.target.value = "";
   }
 
-  public isDefaultTask(name:string): boolean {
-    for(let i =0; i < 5; i++) {
-      if(this.categoryList[i].name === name) {
+  public isDefaultTask(name: string): boolean {
+    let noOfDefaultCategory = 5;
+    for (let i = 0; i < noOfDefaultCategory; i++) {
+      if (this.categoryList[i].name === name) {
         return true;
       }
     }
@@ -58,14 +64,44 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   }
 
   public renderPendingTask() {
-    console.log(this.categoryTitle);
     this.pendingTasks = [];
     this.tasks.forEach(task => {
-      task.category.forEach(category => {
-        if (category === this.categoryTitle) {
-          this.pendingTasks.push(task);
-        }
-      });
+      if (!task.isCompleted) {
+        task.category.forEach(category => {
+          if (category === this.categoryTitle) {
+            this.pendingTasks.push(task);
+          }
+        });
+      }
     });
   }
+
+  public renderCompletedTask() {
+    this.completedTasks = [];
+    if (this.categoryTitle !== "Important") {
+      this.tasks.forEach(task => {
+        if (task.isCompleted) {
+          task.category.forEach(category => {
+            if (category === this.categoryTitle) {
+              this.completedTasks.push(task);
+            }
+          });
+        }
+      });
+    }
+  }
+
+  showAndHideCompletedTask() {
+    if (this.hideCompletedTask == true) {
+      this.hideCompletedTask = false;
+    } else {
+      this.hideCompletedTask = true;
+    }
+  }
+
+  getSelectedTask(task:Task) {
+    this.selectedTask.emit(task);
+    console.log(task);
+  }
+
 }

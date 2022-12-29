@@ -1,4 +1,6 @@
-<div class="center-container">
+<div class="center-container shrink-center-container">
+
+  <!-- need to change as dynamic -->
   <div class="title-and-Other-block">
     <div class="title-block">
       <div class="title-block-left">
@@ -7,23 +9,25 @@
         <button><i class="fa-solid fa-ellipsis"></i></button>
       </div>
       <div class="title-block-right">
-        <div class="sort">
+        <div class="sort-middle">
+          <!-- need to change as dynamic -->
           <i class="fa-solid fa-arrow-right-arrow-left"></i> Sort
         </div>
-        <div class="suggestions">
+        <div class="suggestion-middle">
+          <!-- need to change as dynamic -->
           <i class="fa-regular fa-lightbulb"></i> Suggestions
         </div>
       </div>
     </div>
     <div class="sub-line">
+      {{currentDate| date : 'EEEE, MMMM dd'}}
     </div>
   </div>
   <div class="add-task-bar">
     <button>
       <i class="fa-solid fa-plus" id="add-task-icon"></i>
     </button>
-    <input type="text" class="add-task-input" placeholder="Add a task" required 
-      (keydown.enter)="addTask($event)" >
+    <input type="text" class="add-task-input" placeholder="Add a task" required (keydown.enter)="addTask($event)">
   </div>
   <div class="add-task-option-bar">
     <div class="add-task-option">
@@ -36,15 +40,16 @@
     </div>
   </div>
   <div class="task-container">
+    <app-task-list [renderTasks]="pendingTasks" [titleName]="categoryTitle"
+      (selectedTask)="getSelectedTask($event)"></app-task-list>
 
-    <app-task-list [pendingTasks]="pendingTasks" [titleName]="categoryName"></app-task-list>
-    <div id="completed-hide">
-      <i class="fa-solid fa-angle-right"></i>
+    <div [ngClass]="completedTasks.length > 0 ? 'completed': 'completed-hide'" (click)="showAndHideCompletedTask()">
+      <i [ngClass]="hideCompletedTask ? 'fa-solid fa-angle-right' : 'fa-solid fa-angle-down'"></i>
       <div>Completed</div>
       <div id="completed-task-count"></div>
     </div>
-    <app-task-list></app-task-list>
-    <ul class="completed-task-hide">
-    </ul>
+    <div class="completed-task-hide" [class.completed-task-hide]=hideCompletedTask>
+      <app-task-list [renderTasks]="completedTasks" [titleName]="categoryTitle" (selectedTask)="getSelectedTask($event)"></app-task-list>
+    </div>
   </div>
 </div>

@@ -1,13 +1,17 @@
 <ul class="added-task">
-  <li *ngFor="let task of pendingTasks">
-    <i class="fa-regular fa-circle"></i>
+  <li *ngFor="let task of renderTasks" (click)="getSelectedTask(task)">
+    <i [ngClass]="task.isCompleted ? 'fa-solid fa-circle-check': 'fa-regular fa-circle'"
+      (mouseover)="completedIconHover($event)" (mouseout)="completedIconHover($event)"
+      (click)="changeCompletedStatus($event, task)"></i>
     <div class="task-name">
       <p class="hide-task-id">{{task.id}}</p>
-      <p>{{task.name}}</p>
+      <p [class.strike]="task.isCompleted">{{task.name}}</p>
       <p class="type-of-task">Tasks</p>
     </div>
-    <div class="important">
-      <i class="fa-regular fa-star" (click)="importantStatus($event)"></i>
+    <!-- need to change dynamic -->
+    <div class="important important-middle">
+      <i [ngClass]="task.isImportant ? 'fa-solid fa-star' : 'fa-regular fa-star'"
+        (click)="importantStatus($event, task)"></i>
     </div>
   </li>
 </ul>

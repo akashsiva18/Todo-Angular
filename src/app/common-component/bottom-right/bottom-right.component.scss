@@ -1,4 +1,4 @@
-.bottom-container .right-container {
+.right-container {
   width: 23.43vw;
   display: inline-block;
   border-left: 1px solid #7c7d7f77;
@@ -43,6 +43,10 @@
       .task-details-name {
         width: 72%;
         padding: 0 1rem;
+      }
+
+      .strike {
+        text-decoration: line-through;
       }
 
       .content {
