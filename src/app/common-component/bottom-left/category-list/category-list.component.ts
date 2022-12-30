@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Category } from 'src/app/category';
+import { CommonService } from 'src/app/common.service';
 
 @Component({
   selector: 'app-category-list',
@@ -8,11 +9,12 @@ import { Category } from 'src/app/category';
 })
 export class CategoryListComponent implements OnInit {
 
+  constructor(private commonService:CommonService) {}
+
   @Input() public selectedCategory?: String;
 
-  @Input() categories?: Category[];
+  public categories: Category[] = this.commonService.getCategories();
   
-  @Output() onSelected = new EventEmitter<any>();
 
   ngOnInit(): void {
     this.selectedCategory = "My Day";
@@ -20,6 +22,6 @@ export class CategoryListComponent implements OnInit {
 
   onSelectCategory(category: Category) {
     this.selectedCategory = category.name;
-    this.onSelected.emit(category.name);
+    this.commonService.setSelectedCategory(category.name);
   }
 }

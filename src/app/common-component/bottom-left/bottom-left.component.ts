@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, DoCheck, EventEmitter, OnInit, Output } from '@angular/core';
 import { Category } from 'src/app/category';
+import { CommonService } from 'src/app/common.service';
 
 @Component({
   selector: 'app-bottom-left',
@@ -7,46 +9,33 @@ import { Category } from 'src/app/category';
   styleUrls: ['./bottom-left.component.scss']
 })
 
-export class BottomLeftComponent implements OnInit, DoCheck {
+export class BottomLeftComponent implements OnInit {
 
-  constructor() { }
+  constructor(private commonService: CommonService) { }
   public category?: Category;
-  @Output() selectedCategoryName = new EventEmitter<string>();
   public selectedCategory?: String;
-  @Output() categoryList = new EventEmitter<Category[]>();
-  public categoryName = "";
 
   ngOnInit(): void {
   }
 
-  ngDoCheck(): void {
-    this.categoryList.emit(this.categories);
-  }
-
-  public categories: Category[] = [
-    { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 2, name: "Important", iconClass: "fa-regular fa-star", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 3, name: "planned", iconClass: "fa-regular fa-calendar", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 4, name: "Assigned to Me", iconClass: "fa-solid fa-user", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 5, name: "Tasks", iconClass: "fa-solid fa-house", count: 0, isLastDefaultCategory: true, isDefaultCategory: true }
-  ]
+  public categories: Category[] = this.commonService.getCategories();
 
   addCategory(event: any) {
     if (event.key == "Enter") {
-      this.categoryName = event.target.value;
-      let count = this.countExistCategory(this.categoryName);
+      let categoryName = event.target.value;
+      let count = this.countExistCategory(categoryName);
       if (count > 0) {
-        this.categoryName = this.categoryName + " (" + count + ")";
+        categoryName = categoryName + " (" + count + ")";
       }
-      this.category = {
+      let category = {
         id: this.categories.length,
-        name: this.categoryName,
+        name: categoryName,
         iconClass: "fa-solid fa-list",
         isDefaultCategory: false,
         isLastDefaultCategory: false,
         count: 0
       }
-      this.categories.push(this.category);
+      this.commonService.addCategories(category);
       this.selectedCategory = event.target.value;
       this.onSelected(event.target.value);
       event.target.value = "";
@@ -64,6 +53,7 @@ export class BottomLeftComponent implements OnInit, DoCheck {
   }
 
   onSelected(categoryTitle: string) {
-    this.selectedCategoryName.emit(categoryTitle);
+    this.commonService.setSelectedCategory(categoryTitle);
+    //this.selectedCategoryName.emit(categoryTitle);
   }
 }

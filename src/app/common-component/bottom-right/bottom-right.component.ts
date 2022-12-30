@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/common.service';
 import { Task } from 'src/app/task';
 
 @Component({
@@ -17,6 +18,8 @@ export class BottomRightComponent implements OnInit {
       isCompleted: false
     };
   }
+
+  constructor (public commonService:CommonService) {}
   
   @Input() selectedTask!: Task;
 }

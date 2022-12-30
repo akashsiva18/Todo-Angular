@@ -1,6 +1,7 @@
 import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { Task } from 'src/app/task';
 import { Category } from 'src/app/category';
+import { CommonService } from 'src/app/common.service';
 
 @Component({
   selector: 'app-bottom-center',
@@ -9,10 +10,11 @@ import { Category } from 'src/app/category';
 })
 export class BottomCenterComponent implements OnInit, DoCheck {
 
-  @Input() public categoryTitle = "";
-  @Input() public categoryList!: Category[];
+  constructor(private commonService:CommonService) {}
+  public categoryTitle = "";
+  public categoryList: Category[] = this.commonService.getCategories();
   @Output() selectedTask = new EventEmitter<Task>();
-  public tasks: Task[] = [];
+  public tasks: Task[] = this.commonService.getTasks();
   public pendingTasks: Task[] = [];
   public completedTasks: Task[] = [];
   public isImportantTask = false;
@@ -20,7 +22,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   public currentDate = new Date();
 
   ngOnInit(): void {
-    this.categoryTitle = "My Day"
+    this.commonService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category);
     this.renderPendingTask();
     this.renderCompletedTask();
   }
@@ -42,14 +44,14 @@ export class BottomCenterComponent implements OnInit, DoCheck {
       this.isImportantTask = false;
     }
     task = {
-      id: this.tasks.length + 1,
+      id: this.commonService.getTasks.length + 1,
       category: categories,
       name: event.target.value,
       note: "",
       isImportant: this.isImportantTask,
       isCompleted: false
     }
-    this.tasks.unshift(task);
+    this.commonService.addTask(task);
     event.target.value = "";
   }
 
@@ -78,7 +80,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
 
   public renderCompletedTask() {
     this.completedTasks = [];
-    if (this.categoryTitle !== "Important") {
+    if (! (this.categoryTitle === "Important" || this.categoryTitle === "Planned")) {
       this.tasks.forEach(task => {
         if (task.isCompleted) {
           task.category.forEach(category => {

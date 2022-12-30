@@ -2,14 +2,17 @@
   <div class="inside-right-container">
     <div class="task-details">
       <div class="task-details-icon icon-color">
-        <i [ngClass]="(selectedTask.isCompleted?'fa-solid fa-circle-check':'fa-regular fa-circle')"></i>
+        <i [ngClass]="(selectedTask.isCompleted?'fa-solid fa-circle-check':'fa-regular fa-circle')"
+          (mouseover)=commonService.completedIconMouseIn($event) (mouseout)=commonService.completedIconMouseOut($event)
+          (click)=commonService.changeCompletedStatus(selectedTask)></i>
       </div>
       <div id="task-id"></div>
       <div class="task-details-name" [class.strike]="selectedTask.isCompleted">
         {{selectedTask.name}}
       </div>
       <div class="task-details-icon icon-color">
-        <i [ngClass]="(selectedTask.isImportant?'fa-solid fa-star':'fa-regular fa-star')"></i>
+        <i [ngClass]="(selectedTask.isImportant?'fa-solid fa-star':'fa-regular fa-star')"
+          (click)=commonService.importantStatus($event,selectedTask)></i>
       </div>
     </div>
     <div class="task-details add-step">
