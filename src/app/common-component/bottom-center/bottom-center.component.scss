@@ -1,4 +1,7 @@
-.center-container {
+.center-container,
+.center-container-left-screen,
+.shrink-center-container,
+.center-container-full-screen {
   width: 80.5vw;
   display: inline-block;
   vertical-align: top;
@@ -7,7 +10,7 @@
     height: 4.5rem;
     font-size: 20px;
     margin-top: 1.2rem;
-    margin-left: 1.5rem;
+    margin-left: 1.9rem;
     margin: 1.2rem .75rem .75rem 1.5rem;
 
     .title-block {
@@ -85,10 +88,11 @@
     }
   }
 
-  .add-task-bar {
+  .add-task-bar,
+  .add-task-bar-middle {
     height: 3.25rem;
     width: 97%;
-    margin-left: 1rem;
+    margin-left: 1.4rem;
     border-radius: 5px 5px 0px 0px;
     line-height: 2.2;
     background-color: #ffffff;
@@ -131,10 +135,11 @@
 
   }
 
-  .add-task-option-bar {
+  .add-task-option-bar,
+  .add-task-option-bar-middle {
     height: 2.75rem;
     width: 97%;
-    margin-left: 1rem;
+    margin-left: 1.4rem;
     border-radius: 0px 0px 5px 5px;
     line-height: 1.7;
     background-color: #faf9f8;
@@ -143,7 +148,7 @@
 
     div {
       display: inline-block;
-      width: 49%;
+      width: 49.4%;
     }
 
     i {
@@ -176,6 +181,12 @@
       }
     }
   }
+
+  .add-task-bar-middle,
+  .add-task-option-bar-middle {
+    width: 95%;
+  }
+
 
   .task-container {
     height: auto;

@@ -1,20 +1,16 @@
-<div class="center-container shrink-center-container">
-
-  <!-- need to change as dynamic -->
+<div class={{commonService.centerContainer}}>
   <div class="title-and-Other-block">
     <div class="title-block">
       <div class="title-block-left">
-        <i class="fa-regular fa-sun" id="full-screen-icon"></i>
+        <i class="fa-regular fa-sun" id="full-screen-icon" (click)="toggleMenuAction()"></i>
         <p class="title">{{categoryTitle}}</p>
         <button><i class="fa-solid fa-ellipsis"></i></button>
       </div>
       <div class="title-block-right">
-        <div class="sort-middle">
-          <!-- need to change as dynamic -->
+        <div [ngClass]="commonService.centerContainer == 'shrink-center-container'? 'sort-middle':'sort'">
           <i class="fa-solid fa-arrow-right-arrow-left"></i> Sort
         </div>
-        <div class="suggestion-middle">
-          <!-- need to change as dynamic -->
+        <div [ngClass]="commonService.centerContainer == 'shrink-center-container'? 'suggestion-middle':'suggestion'">
           <i class="fa-regular fa-lightbulb"></i> Suggestions
         </div>
       </div>
@@ -23,13 +19,13 @@
       {{currentDate| date : 'EEEE, MMMM dd'}}
     </div>
   </div>
-  <div class="add-task-bar">
+  <div [ngClass]="commonService.centerContainer == 'shrink-center-container' ?'add-task-bar-middle' : 'add-task-bar'">
     <button>
       <i class="fa-solid fa-plus" id="add-task-icon"></i>
     </button>
-    <input type="text" class="add-task-input" placeholder="Add a task" required (keydown.enter)="addTask($event)">
+    <input [(ngModel)]="taskName" type="text" class="add-task-input" placeholder="Add a task" required (keydown.enter)="addTask()">
   </div>
-  <div class="add-task-option-bar">
+  <div [ngClass]="commonService.centerContainer == 'shrink-center-container' ?'add-task-option-bar-middle' : 'add-task-option-bar'">
     <div class="add-task-option">
       <i class="fa-regular fa-calendar"></i>
       <i class="fa-regular fa-bell"></i>

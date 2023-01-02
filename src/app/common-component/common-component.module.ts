@@ -6,6 +6,7 @@ import { BottomRightComponent } from './bottom-right/bottom-right.component';
 import { CategoryListComponent } from './bottom-left/category-list/category-list.component';
 import { CommonComponent } from './common-component.component';
 import { TaskListComponent } from './bottom-center/task-list/task-list.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TaskListComponent } from './bottom-center/task-list/task-list.component
     TaskListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     BottomCenterComponent,

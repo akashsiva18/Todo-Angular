@@ -14,7 +14,8 @@ export class TaskListComponent {
   @Input() renderTasks!: Task[];
   @Output() selectedTask = new EventEmitter<Task>();
 
-  getSelectedTask(task: Task) {
+  getSelectedTask(task: Task, event: any){
     this.selectedTask.emit(task);
+    this.commonService.rightContainerView(event);
   }
 }

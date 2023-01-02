@@ -10,10 +10,12 @@ import { CommonService } from 'src/app/common.service';
 })
 export class BottomCenterComponent implements OnInit, DoCheck {
 
-  constructor(private commonService:CommonService) {}
+  constructor(public commonService:CommonService) {}
+
+  @Output() selectedTask = new EventEmitter<Task>();
   public categoryTitle = "";
   public categoryList: Category[] = this.commonService.getCategories();
-  @Output() selectedTask = new EventEmitter<Task>();
+  public taskName:string = "";
   public tasks: Task[] = this.commonService.getTasks();
   public pendingTasks: Task[] = [];
   public completedTasks: Task[] = [];
@@ -32,7 +34,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
     this.renderCompletedTask();
   }
 
-  public addTask(event: any) {
+  public addTask():void {
     let task: Task;
     let categories = [this.categoryTitle];
     if (this.categoryTitle !== "Tasks" && this.isDefaultTask(this.categoryTitle)) {
@@ -46,13 +48,13 @@ export class BottomCenterComponent implements OnInit, DoCheck {
     task = {
       id: this.commonService.getTasks.length + 1,
       category: categories,
-      name: event.target.value,
+      name: this.taskName,
       note: "",
       isImportant: this.isImportantTask,
       isCompleted: false
     }
     this.commonService.addTask(task);
-    event.target.value = "";
+    this.taskName = "";
   }
 
   public isDefaultTask(name: string): boolean {
@@ -65,7 +67,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
     return false;
   }
 
-  public renderPendingTask() {
+  public renderPendingTask():void {
     this.pendingTasks = [];
     this.tasks.forEach(task => {
       if (!task.isCompleted) {
@@ -78,7 +80,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
     });
   }
 
-  public renderCompletedTask() {
+  public renderCompletedTask():void {
     this.completedTasks = [];
     if (! (this.categoryTitle === "Important" || this.categoryTitle === "Planned")) {
       this.tasks.forEach(task => {
@@ -93,7 +95,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
     }
   }
 
-  showAndHideCompletedTask() {
+  showAndHideCompletedTask():void {
     if (this.hideCompletedTask == true) {
       this.hideCompletedTask = false;
     } else {
@@ -104,6 +106,10 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   getSelectedTask(task:Task) {
     this.selectedTask.emit(task);
     console.log(task);
+  }
+
+  toggleMenuAction() {
+    this.commonService.toggleMenuAction();
   }
 
 }

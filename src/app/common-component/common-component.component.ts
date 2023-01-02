@@ -30,4 +30,6 @@ export class CommonComponent implements OnInit {
   getSelectedTask(task:Task) {
     this.selectedTask = task;
   }
+
+
 }

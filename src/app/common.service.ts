@@ -19,55 +19,56 @@ export class CommonService {
     { id: 5, name: "Tasks", iconClass: "fa-solid fa-house", count: 0, isLastDefaultCategory: true, isDefaultCategory: true }
   ];
 
-  private tasks:Task[] =[];
+  private tasks: Task[] = [];
 
   private selectedCategory = new BehaviorSubject("My Day");
   currentSelectedCategory$ = this.selectedCategory.asObservable();
+  public centerContainer = "center-container";
+  public leftContainer = "left-container";
+  public rightContainer = "right-container-hide";
+  public sort = "sort";
+  public suggestion = "suggestion";
+  public important = "important";
+  public isCenterContainerShirked = false;
 
-  // private selectedTask = new BehaviorSubject();
-  // selectedTask$ = this.selectedTask.asObservable();
-
-
-  addTask(task:Task) {
+  addTask(task: Task): void {
     this.tasks.unshift(task);
   }
 
-  getTasks() {
+  getTasks(): Task[] {
     return this.tasks;
   }
 
-  getCategories() {
+  getCategories(): Category[] {
     return this.categories;
   }
 
-  addCategories(category: Category) {
+  addCategories(category: Category): void {
     this.categories.push(category);
   }
 
-  setSelectedCategory(categoryName: string) {
+  setSelectedCategory(categoryName: string): void {
     this.selectedCategory.next(categoryName);
   }
 
-  getSelectedCategory() {
+  getSelectedCategory(): BehaviorSubject<string> {
     return this.selectedCategory;
   }
 
-  // setSelectedTask(task:)
-
-  completedIconMouseIn(event: any) {
+  completedIconMouseIn(event: any): void {
     if (this.hasClass(event, "fa-regular fa-circle")) {
       event.target.className = "fa-regular fa-circle-check";
     }
   }
 
-  completedIconMouseOut(event: any) {
+  completedIconMouseOut(event: any): void {
     if (this.hasClass(event, "fa-regular fa-circle-check")) {
       event.target.className = "fa-regular fa-circle";
     }
   }
 
-  importantStatus(event: any, task: Task) {
-    if (this.hasClass(event, "fa-regular fa-star")) {
+  importantStatus(task: Task): void {
+    if (task.isImportant === false) {
       task.isImportant = true;
       task.category.push("Important");
     } else {
@@ -77,15 +78,66 @@ export class CommonService {
     }
   }
 
-  changeCompletedStatus(task: Task) {
-    if(task.isCompleted == true) {
-      task.isCompleted=false;
+  changeCompletedStatus(task: Task): void {
+    if (task.isCompleted == true) {
+      task.isCompleted = false;
     } else {
-      task.isCompleted=true;
+      task.isCompleted = true;
     }
   }
 
-  hasClass(event: any, className: string) {
+  hasClass(event: any, className: string): boolean {
     return event.target.className === className;
+  }
+
+  toggleMenuAction(): void {
+    if (this.leftContainer === "left-container") {
+      this.leftContainer = "left-container-hide";
+      if (this.rightContainer === "right-container-hide") {
+        this.centerContainer = "center-container-full-screen";
+      } else {
+        this.centerContainer = "center-container-left-screen";
+      }
+    } else {
+      this.leftContainer = "left-container";
+      if (this.rightContainer === "right-container-hide") {
+        this.centerContainer = "center-container";
+      } else {
+        this.centerContainer = "shrink-center-container";
+      }
+    }
+    this.centerContainerPropertiesChange();
+  }
+
+  rightContainerView(event: any): void {
+    if (event.target.tagName == "LI") {
+      this.rightContainer = "right-container";
+      if (this.leftContainer === 'left-container') {
+        this.centerContainer = "shrink-center-container";
+      } else {
+        this.centerContainer = "center-container-left-screen";
+      }
+      this.centerContainerPropertiesChange();
+    }
+  }
+
+  hideRightContainer(): void {
+    this.rightContainer = "right-container-hide";
+    if (this.leftContainer === "left-container") {
+      this.centerContainer = "center-container";
+    } else {
+      this.centerContainer = "center-container-full-screen";
+    }
+    this.centerContainerPropertiesChange();
+  }
+
+  centerContainerPropertiesChange(): void {
+    if (this.centerContainer === "shrink-center-container") {
+      this.important = "important-middle"
+    } else if (this.centerContainer === "center-container-full-screen") {
+      this.important = "important-full";
+    } else {
+      this.important = "important";
+    }
   }
 }

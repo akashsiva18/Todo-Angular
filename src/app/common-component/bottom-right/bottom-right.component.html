@@ -1,4 +1,5 @@
-<div class="right-container">
+<div class={{commonService.rightContainer}}>
+  <!-- right-container -->
   <div class="inside-right-container">
     <div class="task-details">
       <div class="task-details-icon icon-color">
@@ -12,7 +13,7 @@
       </div>
       <div class="task-details-icon icon-color">
         <i [ngClass]="(selectedTask.isImportant?'fa-solid fa-star':'fa-regular fa-star')"
-          (click)=commonService.importantStatus($event,selectedTask)></i>
+          (click)=commonService.importantStatus(selectedTask)></i>
       </div>
     </div>
     <div class="task-details add-step">
@@ -82,12 +83,11 @@
         Add file
       </div>
     </div>
-    <input type="text" class="add-note" placeholder="Add note">
-
+    <input type="text" class="add-note" placeholder="Add note" (keypress)="addNotes($event)" value={{selectedTask.note}}>
   </div>
   <div class="detailed-footer">
     <div class="detailed-footer-left">
-      <i class="fa-regular fa-square-caret-right" id="hide-Right-container"></i>
+      <i class="fa-regular fa-square-caret-right" (click)=hideRightContainer()></i>
     </div>
     <div class="detailed-footer-center">
       Created Today

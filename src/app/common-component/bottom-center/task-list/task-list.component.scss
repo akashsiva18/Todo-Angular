@@ -1,7 +1,8 @@
 .added-task {
   list-style: none;
 
-  li {
+  .task,
+  .task-middle {
     width: 97%;
     margin-top: 12px;
     font-size: .9rem;
@@ -9,7 +10,7 @@
     color: #605e5c;
     line-height: 1.2;
     height: 3.25rem;
-    margin-left: 1rem;
+    margin-left: 1.4rem;
     border-radius: 5px 5px 0px 0px;
     background-color: #ffffff;
     border-bottom: 1px solid #e5dbd0;
@@ -44,10 +45,12 @@
       }
     }
 
-    .important {
+    .important,
+    .important-middle,
+    .important-full {
       text-align: right;
       pointer-events: none;
-
+      width: 47.8%;
       i {
         pointer-events: all;
       }
@@ -55,6 +58,10 @@
 
     .important-middle {
       width: 45.2%;
+    }
+
+    .important-full {
+      width: 48.5%;
     }
 
     .task-name {
@@ -75,5 +82,9 @@
       }
 
     }
+  }
+
+  .task-middle {
+    width: 95%;
   }
 }

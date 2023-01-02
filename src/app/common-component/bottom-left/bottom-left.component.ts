@@ -11,35 +11,33 @@ import { CommonService } from 'src/app/common.service';
 
 export class BottomLeftComponent implements OnInit {
 
-  constructor(private commonService: CommonService) { }
+  constructor(public commonService: CommonService) { }
   public category?: Category;
   public selectedCategory?: String;
+  public categoryName: string = "";
 
   ngOnInit(): void {
   }
 
   public categories: Category[] = this.commonService.getCategories();
 
-  addCategory(event: any) {
-    if (event.key == "Enter") {
-      let categoryName = event.target.value;
-      let count = this.countExistCategory(categoryName);
+  addCategory() {
+      let count = this.countExistCategory(this.categoryName);
       if (count > 0) {
-        categoryName = categoryName + " (" + count + ")";
+        this.categoryName = this.categoryName + " (" + count + ")";
       }
       let category = {
         id: this.categories.length,
-        name: categoryName,
+        name: this.categoryName,
         iconClass: "fa-solid fa-list",
         isDefaultCategory: false,
         isLastDefaultCategory: false,
         count: 0
       }
       this.commonService.addCategories(category);
-      this.selectedCategory = event.target.value;
-      this.onSelected(event.target.value);
-      event.target.value = "";
-    }
+      this.selectedCategory = this.categoryName;
+      this.onSelected(this.categoryName);
+      this.categoryName = "";
   }
 
   countExistCategory(name: String) {
@@ -54,6 +52,9 @@ export class BottomLeftComponent implements OnInit {
 
   onSelected(categoryTitle: string) {
     this.commonService.setSelectedCategory(categoryTitle);
-    //this.selectedCategoryName.emit(categoryTitle);
+  }
+
+  toggleMenuAction() {
+    this.commonService.toggleMenuAction();
   }
 }

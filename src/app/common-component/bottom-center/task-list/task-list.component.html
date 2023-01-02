@@ -1,5 +1,6 @@
 <ul class="added-task">
-  <li *ngFor="let task of renderTasks" (click)="getSelectedTask(task)">
+  <li [ngClass]="commonService.centerContainer == 'shrink-center-container' ? 'task-middle':'task'"
+    *ngFor="let task of renderTasks" (click)="getSelectedTask(task,$event)">
     <i [ngClass]="task.isCompleted ? 'fa-solid fa-circle-check': 'fa-regular fa-circle'"
       (mouseover)="commonService.completedIconMouseIn($event)" (mouseout)="commonService.completedIconMouseOut($event)"
       (click)="commonService.changeCompletedStatus(task)"></i>
@@ -8,10 +9,9 @@
       <p [class.strike]="task.isCompleted">{{task.name}}</p>
       <p class="type-of-task">Tasks</p>
     </div>
-    <!-- need to change dynamic -->
-    <div class="important important-middle">
+    <div class={{commonService.important}}>
       <i [ngClass]="task.isImportant ? 'fa-solid fa-star' : 'fa-regular fa-star'"
-        (click)="commonService.importantStatus($event, task)"></i>
+        (click)="commonService.importantStatus(task)"></i>
     </div>
   </li>
 </ul>

@@ -1,16 +1,13 @@
-<div class="left-container">
+<div class={{commonService.leftContainer}}>
   <div class="default-menu-block">
     <div class="side-bar-head">
-      <i class="fa-solid fa-bars" id="left-menu"></i>
+      <i class="fa-solid fa-bars" id="left-menu" (click)="toggleMenuAction()"></i>
     </div>
-
-    <app-category-list [selectedCategory]="selectedCategory">
-    </app-category-list>
-
+    <app-category-list [selectedCategory]="selectedCategory"></app-category-list>
   </div>
   <div class="default-add-menu">
     <i class="fa-solid fa-plus"></i>
-    <input type="text" class="new-List-Bar" placeholder="New list" required (keypress)="addCategory($event)">
+    <input type="text" [(ngModel)]="categoryName" class="new-List-Bar" placeholder="New list" required (keydown.enter)="addCategory()">
     <div class="create-group-block">
       <i class="fa-solid fa-file-circle-plus"></i>
     </div>
