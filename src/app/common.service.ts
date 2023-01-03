@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Category } from './category';
 import { BehaviorSubject } from 'rxjs';
 import { Task } from './task';
+import { Constant } from './constant';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import { Task } from './task';
 export class CommonService {
 
   constructor() { }
+
+  public constant = new Constant;
 
   private categories: Category[] = [
     { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
@@ -21,15 +24,22 @@ export class CommonService {
 
   private tasks: Task[] = [];
 
-  private selectedCategory = new BehaviorSubject("My Day");
-  currentSelectedCategory$ = this.selectedCategory.asObservable();
-  public centerContainer = "center-container";
-  public leftContainer = "left-container";
-  public rightContainer = "right-container-hide";
-  public sort = "sort";
-  public suggestion = "suggestion";
-  public important = "important";
-  public isCenterContainerShirked = false;
+  private task: Task = {
+    id: 0,
+    name: '',
+    categoryIds: [],
+    note: '',
+    isImportant: false,
+    isCompleted: false
+  };
+
+  private selectedCategory = new BehaviorSubject(this.categories[0]);
+  public currentSelectedCategory$ = this.selectedCategory.asObservable();
+  private selectedTask = new BehaviorSubject(this.task);
+  public selectedTask$ = this.selectedTask.asObservable();
+  public viewLeftContainer = true;
+  public viewRightContainer = false;
+  public applyClassCenter = this.constant.DEFAULT_VIEW;
 
   addTask(task: Task): void {
     this.tasks.unshift(task);
@@ -37,6 +47,10 @@ export class CommonService {
 
   getTasks(): Task[] {
     return this.tasks;
+  }
+
+  setSelectedTask(task: Task) {
+    this.selectedTask.next(task);
   }
 
   getCategories(): Category[] {
@@ -47,34 +61,34 @@ export class CommonService {
     this.categories.push(category);
   }
 
-  setSelectedCategory(categoryName: string): void {
-    this.selectedCategory.next(categoryName);
+  setSelectedCategory(category: Category): void {
+    this.selectedCategory.next(category);
   }
 
-  getSelectedCategory(): BehaviorSubject<string> {
+  getSelectedCategory(): BehaviorSubject<Category> {
     return this.selectedCategory;
   }
 
   completedIconMouseIn(event: any): void {
-    if (this.hasClass(event, "fa-regular fa-circle")) {
-      event.target.className = "fa-regular fa-circle-check";
+    if (this.hasClass(event, this.constant.COMPLETED_MOUSE_OUT)) {
+      event.target.className = this.constant.COMPLETED_MOUSE_IN;
     }
   }
 
   completedIconMouseOut(event: any): void {
-    if (this.hasClass(event, "fa-regular fa-circle-check")) {
-      event.target.className = "fa-regular fa-circle";
+    if (this.hasClass(event, this.constant.COMPLETED_MOUSE_IN)) {
+      event.target.className = this.constant.COMPLETED_MOUSE_OUT;
     }
   }
 
   importantStatus(task: Task): void {
     if (task.isImportant === false) {
       task.isImportant = true;
-      task.category.push("Important");
+      task.categoryIds.push(2);
     } else {
       task.isImportant = false;
-      let index = task.category.indexOf('Important');
-      task.category.splice(index, 1);
+      let index = task.categoryIds.indexOf(2);
+      task.categoryIds.splice(index, 1);
     }
   }
 
@@ -91,53 +105,38 @@ export class CommonService {
   }
 
   toggleMenuAction(): void {
-    if (this.leftContainer === "left-container") {
-      this.leftContainer = "left-container-hide";
-      if (this.rightContainer === "right-container-hide") {
-        this.centerContainer = "center-container-full-screen";
+    if (this.viewLeftContainer === true) {
+      this.viewLeftContainer = false;
+      if (this.viewRightContainer === false) {
+        this.applyClassCenter = this.constant.FULL_VIEW;
       } else {
-        this.centerContainer = "center-container-left-screen";
+        this.applyClassCenter = this.constant.LEFT_VIEW;
       }
     } else {
-      this.leftContainer = "left-container";
-      if (this.rightContainer === "right-container-hide") {
-        this.centerContainer = "center-container";
+      this.viewLeftContainer = true;
+      if (this.viewRightContainer === false) {
+        this.applyClassCenter = this.constant.DEFAULT_VIEW;
       } else {
-        this.centerContainer = "shrink-center-container";
+        this.applyClassCenter = this.constant.CENTER_VIEW;
       }
     }
-    this.centerContainerPropertiesChange();
   }
 
-  rightContainerView(event: any): void {
-    if (event.target.tagName == "LI") {
-      this.rightContainer = "right-container";
-      if (this.leftContainer === 'left-container') {
-        this.centerContainer = "shrink-center-container";
-      } else {
-        this.centerContainer = "center-container-left-screen";
-      }
-      this.centerContainerPropertiesChange();
+  rightContainerView(): void {
+    this.viewRightContainer = true;
+    if (this.viewLeftContainer === true) {
+      this.applyClassCenter = this.constant.CENTER_VIEW;
+    } else {
+      this.applyClassCenter = this.constant.LEFT_VIEW;
     }
   }
 
   hideRightContainer(): void {
-    this.rightContainer = "right-container-hide";
-    if (this.leftContainer === "left-container") {
-      this.centerContainer = "center-container";
+    this.viewRightContainer = false;
+    if (this.viewLeftContainer === true) {
+      this.applyClassCenter = this.constant.DEFAULT_VIEW;
     } else {
-      this.centerContainer = "center-container-full-screen";
-    }
-    this.centerContainerPropertiesChange();
-  }
-
-  centerContainerPropertiesChange(): void {
-    if (this.centerContainer === "shrink-center-container") {
-      this.important = "important-middle"
-    } else if (this.centerContainer === "center-container-full-screen") {
-      this.important = "important-full";
-    } else {
-      this.important = "important";
+      this.applyClassCenter = this.constant.FULL_VIEW;
     }
   }
 }

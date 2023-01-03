@@ -9,27 +9,22 @@ import { TaskListComponent } from '../bottom-center/task-list/task-list.componen
   styleUrls: ['./bottom-right.component.scss']
 })
 export class BottomRightComponent implements OnInit {
+
+  public selectedTask!: Task;
+
+  public note = "";
+
+  constructor(public commonService: CommonService) { }
+
   ngOnInit(): void {
-    this.selectedTask = {
-      id: 0,
-      name: '',
-      category: [],
-      note: '',
-      isImportant: false,
-      isCompleted: false
-    };
+    this.commonService.selectedTask$.subscribe(task => this.selectedTask = task);
   }
 
-  constructor (public commonService:CommonService) {}
-  
-  @Input() selectedTask!: Task;
-
-  hideRightContainer() {
+  hideRightContainer(): void {
     this.commonService.hideRightContainer();
   }
 
-  addNotes(event:any) {
-    this.selectedTask.note = event.target.value;
-    console.log(this.selectedTask);
+  addNotes(): void {
+    this.selectedTask.note = this.note;
   }
 }

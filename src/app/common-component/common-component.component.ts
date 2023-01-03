@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Category } from "../category";
-import { Task } from "../task";
 
 @Component({
   selector: "app-common-Component",
@@ -13,23 +12,15 @@ export class CommonComponent implements OnInit {
 
   public categoryList!: Category[];
 
-  public selectedTask!: Task;
-
   constructor() { }
 
   ngOnInit(): void { }
 
-  getSelectedCategoryName(name: string) {
+  getSelectedCategoryName(name: string): void {
     this.selectedCategoryName = name;
   }
 
-  getCategoryList(categories: Category[]) {
+  getCategoryList(categories: Category[]): void {
     this.categoryList = categories;
   }
-
-  getSelectedTask(task:Task) {
-    this.selectedTask = task;
-  }
-
-
 }

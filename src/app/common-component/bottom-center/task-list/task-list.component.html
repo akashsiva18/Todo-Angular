@@ -1,6 +1,6 @@
 <ul class="added-task">
-  <li [ngClass]="commonService.centerContainer == 'shrink-center-container' ? 'task-middle':'task'"
-    *ngFor="let task of renderTasks" (click)="getSelectedTask(task,$event)">
+  <li [ngClass]="commonService.applyClassCenter == constant.CENTER_VIEW ? 'task-middle':'task'"
+    *ngFor="let task of renderTasks" (click)="getSelectedTask(task)">
     <i [ngClass]="task.isCompleted ? 'fa-solid fa-circle-check': 'fa-regular fa-circle'"
       (mouseover)="commonService.completedIconMouseIn($event)" (mouseout)="commonService.completedIconMouseOut($event)"
       (click)="commonService.changeCompletedStatus(task)"></i>
@@ -9,9 +9,14 @@
       <p [class.strike]="task.isCompleted">{{task.name}}</p>
       <p class="type-of-task">Tasks</p>
     </div>
-    <div class={{commonService.important}}>
+    <div [ngClass]="{
+      'important': commonService.applyClassCenter === constant.DEFAULT_VIEW ,
+      'important-full':commonService.applyClassCenter === constant.FULL_VIEW,
+      'important-left':commonService.applyClassCenter === constant.LEFT_VIEW,
+      'important-middle': commonService.applyClassCenter === constant.CENTER_VIEW}">
       <i [ngClass]="task.isImportant ? 'fa-solid fa-star' : 'fa-regular fa-star'"
-        (click)="commonService.importantStatus(task)"></i>
+        (click)="commonService.importantStatus(task)" (click)="$event.stopPropagation()">
+      </i>
     </div>
   </li>
 </ul>

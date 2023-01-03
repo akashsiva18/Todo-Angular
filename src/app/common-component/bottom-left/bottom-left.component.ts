@@ -21,7 +21,10 @@ export class BottomLeftComponent implements OnInit {
 
   public categories: Category[] = this.commonService.getCategories();
 
-  addCategory() {
+  addCategory(): void {
+    if (this.categoryName.trim().length == 0) {
+      this.categoryName = "Untitled list";
+    }
       let count = this.countExistCategory(this.categoryName);
       if (count > 0) {
         this.categoryName = this.categoryName + " (" + count + ")";
@@ -36,11 +39,11 @@ export class BottomLeftComponent implements OnInit {
       }
       this.commonService.addCategories(category);
       this.selectedCategory = this.categoryName;
-      this.onSelected(this.categoryName);
+      this.onSelected(category);
       this.categoryName = "";
   }
 
-  countExistCategory(name: String) {
+  countExistCategory(name: String): number {
     var count = 0;
     this.categories.forEach(category => {
       if (category.name.split(" (", 1)[0] === name) {
@@ -50,8 +53,8 @@ export class BottomLeftComponent implements OnInit {
     return count;
   }
 
-  onSelected(categoryTitle: string) {
-    this.commonService.setSelectedCategory(categoryTitle);
+  onSelected(category: Category) {
+    this.commonService.setSelectedCategory(category);
   }
 
   toggleMenuAction() {

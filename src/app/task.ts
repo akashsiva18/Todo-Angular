@@ -1,7 +1,7 @@
 export interface Task {
   id:number;
   name:string;
-  category:string[];
+  categoryIds:number[];
   note:string;
   isImportant:boolean;
   isCompleted:boolean;

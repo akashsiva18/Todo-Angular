@@ -1,31 +1,38 @@
-<div class={{commonService.centerContainer}}>
+<div [ngClass]="{
+  'center-container': commonService.applyClassCenter === constant.DEFAULT_VIEW,
+  'center-container-full-screen':commonService.applyClassCenter === constant.FULL_VIEW,
+  'center-container-left-screen':commonService.applyClassCenter === constant.LEFT_VIEW,
+  'shrink-center-container': commonService.applyClassCenter === constant.CENTER_VIEW 
+}">
   <div class="title-and-Other-block">
     <div class="title-block">
       <div class="title-block-left">
-        <i class="fa-regular fa-sun" id="full-screen-icon" (click)="toggleMenuAction()"></i>
+        <i [ngClass]="commonService.viewLeftContainer? selectedCategory.iconClass:'fa-solid fa-bars'"
+          id="full-screen-icon" (click)="toggleMenuAction()"></i>
         <p class="title">{{categoryTitle}}</p>
         <button><i class="fa-solid fa-ellipsis"></i></button>
       </div>
       <div class="title-block-right">
-        <div [ngClass]="commonService.centerContainer == 'shrink-center-container'? 'sort-middle':'sort'">
+        <div [ngClass]="commonService.applyClassCenter == constant.CENTER_VIEW  ? 'sort-middle':'sort'">
           <i class="fa-solid fa-arrow-right-arrow-left"></i> Sort
         </div>
-        <div [ngClass]="commonService.centerContainer == 'shrink-center-container'? 'suggestion-middle':'suggestion'">
+        <div [ngClass]="commonService.applyClassCenter == constant.CENTER_VIEW ? 'suggestion-middle':'suggestion'">
           <i class="fa-regular fa-lightbulb"></i> Suggestions
         </div>
       </div>
     </div>
     <div class="sub-line">
-      {{currentDate| date : 'EEEE, MMMM dd'}}
+      {{currentDate| date : 'EEEE, MMMM d'}}
     </div>
   </div>
-  <div [ngClass]="commonService.centerContainer == 'shrink-center-container' ?'add-task-bar-middle' : 'add-task-bar'">
+  <div [ngClass]="commonService.applyClassCenter == constant.CENTER_VIEW ?'add-task-bar-middle' : 'add-task-bar'">
     <button>
       <i class="fa-solid fa-plus" id="add-task-icon"></i>
     </button>
-    <input [(ngModel)]="taskName" type="text" class="add-task-input" placeholder="Add a task" required (keydown.enter)="addTask()">
+    <input [(ngModel)]="taskName" type="text" class="add-task-input" placeholder="Add a task"
+      (keydown.enter)="addTask()">
   </div>
-  <div [ngClass]="commonService.centerContainer == 'shrink-center-container' ?'add-task-option-bar-middle' : 'add-task-option-bar'">
+  <div [ngClass]="commonService.applyClassCenter == constant.CENTER_VIEW ?'add-task-option-bar-middle' : 'add-task-option-bar'">
     <div class="add-task-option">
       <i class="fa-regular fa-calendar"></i>
       <i class="fa-regular fa-bell"></i>
@@ -36,7 +43,7 @@
     </div>
   </div>
   <div class="task-container">
-    <app-task-list [renderTasks]="pendingTasks" (selectedTask)="getSelectedTask($event)"></app-task-list>
+    <app-task-list [renderTasks]="pendingTasks"></app-task-list>
 
     <div [ngClass]="completedTasks.length > 0 ? 'completed': 'completed-hide'" (click)="showAndHideCompletedTask()">
       <i [ngClass]="hideCompletedTask ? 'fa-solid fa-angle-right' : 'fa-solid fa-angle-down'"></i>
@@ -44,7 +51,7 @@
       <div id="completed-task-count"></div>
     </div>
     <div class="completed-task-hide" [class.completed-task-hide]=hideCompletedTask>
-      <app-task-list [renderTasks]="completedTasks" (selectedTask)="getSelectedTask($event)"></app-task-list>
+      <app-task-list [renderTasks]="completedTasks"></app-task-list>
     </div>
   </div>
 </div>

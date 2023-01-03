@@ -9,19 +9,19 @@ import { CommonService } from 'src/app/common.service';
 })
 export class CategoryListComponent implements OnInit {
 
-  constructor(private commonService:CommonService) {}
+  constructor(private commonService: CommonService) { }
 
   @Input() public selectedCategory?: String;
 
   public categories: Category[] = this.commonService.getCategories();
-  
+
 
   ngOnInit(): void {
     this.selectedCategory = "My Day";
   }
 
-  onSelectCategory(category: Category) {
+  onSelectCategory(category: Category): void {
     this.selectedCategory = category.name;
-    this.commonService.setSelectedCategory(category.name);
+    this.commonService.setSelectedCategory(category);
   }
 }

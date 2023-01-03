@@ -1,5 +1,3 @@
-@import url(./global-component/nav-bar/nav-bar.component.scss);
-
 * {
   padding: 0;
   margin: 0;
@@ -16,7 +14,8 @@ body {
   font-size: 1.4rem;
   background-color: #faf9f8;
 
-  .bottom-container {
+  .bottom-container,
+  .bottom-container-hide {
     width: 100vw;
     min-height: 93vh;
     display: inline-block;
@@ -29,9 +28,11 @@ body {
       display: none;
     }
   }
+
+  .bottom-container-hide{
+    display: none;
+  }
 }
-
-
 
 ::-webkit-scrollbar-thumb {
   background: #edebe9;

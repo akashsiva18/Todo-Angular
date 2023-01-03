@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonService } from 'src/app/common.service';
+import { Constant } from 'src/app/constant';
 import { Task } from 'src/app/task';
 
 @Component({
@@ -12,10 +13,11 @@ export class TaskListComponent {
   constructor(public commonService: CommonService) { }
 
   @Input() renderTasks!: Task[];
-  @Output() selectedTask = new EventEmitter<Task>();
 
-  getSelectedTask(task: Task, event: any){
-    this.selectedTask.emit(task);
-    this.commonService.rightContainerView(event);
+  public constant = new Constant();
+
+  getSelectedTask(task: Task): void {
+    this.commonService.setSelectedTask(task);
+    this.commonService.rightContainerView();
   }
 }

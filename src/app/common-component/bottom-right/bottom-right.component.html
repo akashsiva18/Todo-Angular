@@ -1,4 +1,4 @@
-<div class={{commonService.rightContainer}}>
+<div [ngClass]="commonService.viewRightContainer?'right-container':'right-container-hide'" >
   <!-- right-container -->
   <div class="inside-right-container">
     <div class="task-details">
@@ -83,7 +83,7 @@
         Add file
       </div>
     </div>
-    <input type="text" class="add-note" placeholder="Add note" (keypress)="addNotes($event)" value={{selectedTask.note}}>
+    <input type="text" [(ngModel)]="note" class="add-note" placeholder="Add note" (keypress)="addNotes()" value={{selectedTask.note}}>
   </div>
   <div class="detailed-footer">
     <div class="detailed-footer-left">

@@ -47,7 +47,8 @@
 
     .important,
     .important-middle,
-    .important-full {
+    .important-full,
+    .important-left {
       text-align: right;
       pointer-events: none;
       width: 47.8%;
@@ -63,6 +64,11 @@
     .important-full {
       width: 48.5%;
     }
+
+    .important-left {
+      width: 47.5%;
+    }
+
 
     .task-name {
       position: relative;

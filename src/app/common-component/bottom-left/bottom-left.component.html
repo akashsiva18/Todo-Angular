@@ -1,4 +1,5 @@
-<div class={{commonService.leftContainer}}>
+<div [ngClass]="commonService.viewLeftContainer ?'left-container' :'left-container-hide'">
+  <!-- commonService.viewLeftContainer -->
   <div class="default-menu-block">
     <div class="side-bar-head">
       <i class="fa-solid fa-bars" id="left-menu" (click)="toggleMenuAction()"></i>
