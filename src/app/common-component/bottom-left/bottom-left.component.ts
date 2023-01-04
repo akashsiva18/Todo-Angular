@@ -30,7 +30,7 @@ export class BottomLeftComponent implements OnInit {
         this.categoryName = this.categoryName + " (" + count + ")";
       }
       let category = {
-        id: this.categories.length,
+        id: this.categories.length + 1,
         name: this.categoryName,
         iconClass: "fa-solid fa-list",
         isDefaultCategory: false,

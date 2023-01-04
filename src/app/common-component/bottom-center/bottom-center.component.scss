@@ -1,3 +1,10 @@
+@import '../../color.scss';
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
 .center-container,
 .center-container-left-screen,
 .shrink-center-container,
@@ -36,13 +43,13 @@
           font-size: 1.4rem;
           padding: 9px 12px;
           border: none;
-          background-color: #faf9f8;
+          background-color: $primary-background-light-gray;
         }
       }
 
       .title-block-right {
         text-align: right;
-        color: #605e5c;
+        color: $secondary-options-text-color;
         font-size: .875rem;
         font-weight: 400;
         width: 49%;
@@ -83,7 +90,7 @@
     .sub-line {
       font-weight: 350;
       font-size: .75rem;
-      color: #605e5c;
+      color: $secondary-options-text-color;
       line-height: 0;
     }
   }
@@ -95,16 +102,16 @@
     margin-left: 1.4rem;
     border-radius: 5px 5px 0px 0px;
     line-height: 2.2;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5dbd0;
-    box-shadow: #6c6a6a7d 0px 1px 1px;
+    background-color: $primary-white;
+    border-bottom: 1px solid $secondary-list-border-bottom-sand-dagger;
+    box-shadow: $secondary-list-shadow 0px 1px 1px;
 
     button {
       font-size: 1rem;
       padding: 9px 12px;
       border: none;
-      background-color: #ffffff;
-      color: #2564cf;
+      background-color: $primary-white;
+      color: $primary-blue;
       margin-left: .8rem;
     }
 
@@ -116,7 +123,7 @@
       font-size: .9rem;
 
       &::placeholder {
-        color: #2564cf;
+        color: $primary-blue;
       }
     }
 
@@ -127,9 +134,9 @@
         margin-left: 1rem;
         border-radius: 5px 5px 0px 0px;
         line-height: 2.2;
-        background-color: #ffffff;
-        border-bottom: 1px solid #e5dbd0;
-        box-shadow: #6c6a6a7d 0px 1px 1px;
+        background-color: $primary-white;
+        border-bottom: 1px solid $secondary-list-border-bottom-sand-dagger;
+        box-shadow: $secondary-list-shadow 0px 1px 1px;
       }
     }
 
@@ -142,9 +149,9 @@
     margin-left: 1.4rem;
     border-radius: 0px 0px 5px 5px;
     line-height: 1.7;
-    background-color: #faf9f8;
-    border-bottom: 1px solid #e5dbd0;
-    box-shadow: #6c6a6a7d 0px 1px 1px;
+    background-color: $primary-background-light-gray;
+    border-bottom: 1px solid $secondary-list-border-bottom-sand-dagger;
+    box-shadow: $secondary-list-shadow 0px 1px 1px;
 
     div {
       display: inline-block;
@@ -154,7 +161,7 @@
     i {
       padding: .5rem;
       font-size: 1rem;
-      color: #605e5c;
+      color: $secondary-options-text-color;
 
       &:first-child {
         margin-left: 1rem;
@@ -175,9 +182,9 @@
       button {
         background-color: white;
         padding: .5rem;
-        border: .05rem solid #e1dfdd;
+        border: .05rem solid $secondary-border-white;
         border-radius: .05rem;
-        color: #a19f9d;
+        color: $secondary-text-color-button;
       }
     }
   }
@@ -218,7 +225,7 @@
       margin: .5rem 1.8rem;
       font-size: 0.85rem;
       font-weight: 600;
-      border-bottom: 1px solid #e1dfdd;
+      border-bottom: 1px solid $secondary-border-white;
 
       i,
       p {
@@ -229,7 +236,7 @@
         pointer-events: none;
         padding: 0 1rem;
         display: inline-block;
-        color: #292827;
+        color: $secondary-list-text-color;
         font-family: "Segoe", "Segoe UI", "Arial", "sans-serif";
         background-color: transparent;
       }
@@ -248,7 +255,7 @@
         pointer-events: none;
         padding: 0 1rem;
         display: inline-block;
-        color: #292827;
+        color: $secondary-list-text-color;
         font-family: "Segoe", "Segoe UI", "Arial", "sans-serif";
         background-color: transparent;
       }
@@ -271,5 +278,5 @@
 }
 
 .center-container-left-screen {
-  width: calc(100vw - 23.9vw);
+  width: calc(100vw - 23.54vw);
 }

@@ -5,22 +5,29 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SettingComponent } from './setting/setting.component';
 import { HelpComponent } from './help/help.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { AnnouncementComponent } from './announcement/announcement.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     NavBarComponent,
     SearchBarComponent,
     SettingComponent,
-    HelpComponent
+    HelpComponent,
+    AnnouncementComponent,
+    ProfileComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
     AppRoutingModule
   ],
-  exports:[
+  exports: [
     NavBarComponent,
     SearchBarComponent,
-    SettingComponent
-  ]
+    SettingComponent,
+    HelpComponent,
+    AnnouncementComponent]
 })
 export class GlobalComponentModule { }

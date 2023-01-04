@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { async } from '@angular/core/testing';
 import { Category } from 'src/app/category';
 import { CommonService } from 'src/app/common.service';
 
@@ -17,7 +18,9 @@ export class CategoryListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.selectedCategory = "My Day";
+    //this.selectedCategory = "My Day"; 
+    this.categories = this.commonService.getCategories();
+    this.commonService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category.name);;
   }
 
   onSelectCategory(category: Category): void {

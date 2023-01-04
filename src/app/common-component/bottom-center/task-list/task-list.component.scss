@@ -1,3 +1,10 @@
+@import '../../../color.scss';
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
 .added-task {
   list-style: none;
 
@@ -7,18 +14,18 @@
     margin-top: 12px;
     font-size: .9rem;
     font-weight: 400;
-    color: #605e5c;
+    color: $secondary-options-text-color;
     line-height: 1.2;
     height: 3.25rem;
     margin-left: 1.4rem;
     border-radius: 5px 5px 0px 0px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5dbd0;
-    box-shadow: #6c6a6a7d 0px 1px 1px;
+    background-color: $primary-white;
+    border-bottom: 1px solid $secondary-list-border-bottom-sand-dagger;
+    box-shadow: $secondary-list-shadow 0px 1px 1px;
     cursor: pointer;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: $secondary-list-hover;
     }
 
     div {
@@ -34,7 +41,7 @@
       margin-right: .7rem;
       border-radius: .05rem;
       line-height: 1.1;
-      color: #2564cf;
+      color: $primary-blue;
       pointer-events: all;
       cursor: pointer;
     }
@@ -52,6 +59,7 @@
       text-align: right;
       pointer-events: none;
       width: 47.8%;
+
       i {
         pointer-events: all;
       }

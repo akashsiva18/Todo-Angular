@@ -61,8 +61,6 @@ export class BottomCenterComponent implements OnInit, DoCheck {
       this.commonService.addTask(task);
       this.taskName = "";
     }
-    console.log(this.tasks);
-     
   }
 
   public isDefaultTask(id: number): boolean {

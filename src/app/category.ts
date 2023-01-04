@@ -5,4 +5,5 @@ export interface Category {
   count:number;
   isLastDefaultCategory:boolean;
   isDefaultCategory:boolean;
+
 }

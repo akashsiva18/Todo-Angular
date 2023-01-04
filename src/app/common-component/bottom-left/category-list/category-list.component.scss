@@ -1,3 +1,10 @@
+@import '../../../color.scss';
+
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
 .default-and-custom-menu {
   overflow-y: auto;
   line-height: 3;
@@ -47,7 +54,7 @@
   .selected-menu {
     background-color: #eef7ff;
     font-weight: bold;
-    border-left: 3px solid #2564cf;
+    border-left: 3px solid $primary-blue;
     padding-left: 1.6rem;
   }
 

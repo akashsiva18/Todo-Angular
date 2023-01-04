@@ -1,16 +1,38 @@
-div {
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
+.full-view {
   height: calc(100vh - 3rem);
   text-align: center;
 
-  i {
-    position: relative;
-    top: 0%;
-    left: 0%
+  img {
+    margin: 3rem 0;
+    height: 60vh;
+    width: 45vw;
   }
 
-}
+  .title {
+    color: #2564cf;
+    font-size: 2rem;
+  }
 
-h1 {
-  position: relative;
-  top: 40%
+  button {
+    background-color: #2564cf;
+    font-weight: 700;
+    color: #ffffff;
+    height: 2rem;
+    width: 12rem;
+    left: 49%;
+    bottom: 16%;
+    border: none;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #2564cf;
+      border: .1rem solid #2564cf;
+    }
+  }
+
 }

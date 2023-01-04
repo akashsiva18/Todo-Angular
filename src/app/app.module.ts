@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { GlobalComponentModule } from './global-component/global-component.module';
 import { CommonComponentModule } from './common-component/common-component.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { CommonComponentModule } from './common-component/common-component.modul
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     GlobalComponentModule,

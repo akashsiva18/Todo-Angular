@@ -1,18 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Category } from './category';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, elementAt } from 'rxjs';
 import { Task } from './task';
 import { Constant } from './constant';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CommonService {
+export class CommonService implements OnInit{
 
-  constructor() { }
+  constructor(private dataService:DataService) { 
+  }
+  ngOnInit(): void {
+    this.setCategory();
+  }
+
+  setCategory() {
+    this.dataService.getCategory().subscribe((res:any)=>{
+      // this.categories = res;
+      res.forEach((element:Category) => {
+        this.categories2.push(element);
+      })
+      console.log(res);
+    })
+    console.log(this.categories);
+  }
 
   public constant = new Constant;
+  public categories2: Category[] = [];
 
   private categories: Category[] = [
     { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },

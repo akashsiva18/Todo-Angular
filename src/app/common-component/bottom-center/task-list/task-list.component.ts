@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonService } from 'src/app/common.service';
 import { Constant } from 'src/app/constant';
 import { Task } from 'src/app/task';
@@ -8,9 +8,12 @@ import { Task } from 'src/app/task';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit{
 
   constructor(public commonService: CommonService) { }
+  ngOnInit(): void {
+    this.commonService.setCategory();
+  }
 
   @Input() renderTasks!: Task[];
 
