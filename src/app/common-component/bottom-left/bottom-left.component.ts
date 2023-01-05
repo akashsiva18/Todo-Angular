@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, DoCheck, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Category } from 'src/app/category';
 import { CommonService } from 'src/app/common.service';
+import { DataService } from 'src/app/data.service';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 @Component({
   selector: 'app-bottom-left',
@@ -11,50 +14,18 @@ import { CommonService } from 'src/app/common.service';
 
 export class BottomLeftComponent implements OnInit {
 
-  constructor(public commonService: CommonService) { }
-  public category?: Category;
+  constructor(public commonService: CommonService,public dataService:DataService) { }
+  @ViewChild(CategoryListComponent) child !: CategoryListComponent;
   public selectedCategory?: String;
   public categoryName: string = "";
+  public addedCategory!:Category;
 
   ngOnInit(): void {
   }
 
-  public categories: Category[] = this.commonService.getCategories();
-
-  addCategory(): void {
-    if (this.categoryName.trim().length == 0) {
-      this.categoryName = "Untitled list";
-    }
-      let count = this.countExistCategory(this.categoryName);
-      if (count > 0) {
-        this.categoryName = this.categoryName + " (" + count + ")";
-      }
-      let category = {
-        id: this.categories.length + 1,
-        name: this.categoryName,
-        iconClass: "fa-solid fa-list",
-        isDefaultCategory: false,
-        isLastDefaultCategory: false,
-        count: 0
-      }
-      this.commonService.addCategories(category);
-      this.selectedCategory = this.categoryName;
-      this.onSelected(category);
-      this.categoryName = "";
-  }
-
-  countExistCategory(name: String): number {
-    var count = 0;
-    this.categories.forEach(category => {
-      if (category.name.split(" (", 1)[0] === name) {
-        count++;
-      }
-    });
-    return count;
-  }
-
-  onSelected(category: Category) {
-    this.commonService.setSelectedCategory(category);
+  addCategory() {
+    this.child.addCategory(this.categoryName);
+    this.categoryName = "";
   }
 
   toggleMenuAction() {

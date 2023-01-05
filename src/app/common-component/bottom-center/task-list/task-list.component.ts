@@ -12,7 +12,6 @@ export class TaskListComponent implements OnInit{
 
   constructor(public commonService: CommonService) { }
   ngOnInit(): void {
-    this.commonService.setCategory();
   }
 
   @Input() renderTasks!: Task[];

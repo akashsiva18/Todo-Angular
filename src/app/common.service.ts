@@ -1,6 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Category } from './category';
-import { BehaviorSubject, elementAt } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Task } from './task';
 import { Constant } from './constant';
 import { DataService } from './data.service';
@@ -9,35 +9,16 @@ import { DataService } from './data.service';
   providedIn: 'root'
 })
 
-export class CommonService implements OnInit{
+export class CommonService {
 
-  constructor(private dataService:DataService) { 
-  }
-  ngOnInit(): void {
-    this.setCategory();
-  }
-
-  setCategory() {
-    this.dataService.getCategory().subscribe((res:any)=>{
-      // this.categories = res;
-      res.forEach((element:Category) => {
-        this.categories2.push(element);
-      })
-      console.log(res);
-    })
-    console.log(this.categories);
+  constructor(private dataService: DataService) {
   }
 
   public constant = new Constant;
-  public categories2: Category[] = [];
 
-  private categories: Category[] = [
-    { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 2, name: "Important", iconClass: "fa-regular fa-star", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 3, name: "Planned", iconClass: "fa-regular fa-calendar", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 4, name: "Assigned to Me", iconClass: "fa-solid fa-user", count: 0, isLastDefaultCategory: false, isDefaultCategory: true },
-    { id: 5, name: "Tasks", iconClass: "fa-solid fa-house", count: 0, isLastDefaultCategory: true, isDefaultCategory: true }
-  ];
+  public categories: Category[] = [];
+  public categoriesBehaviorSubject = new BehaviorSubject(this.categories);
+  public categories$ = this.categoriesBehaviorSubject.asObservable();
 
   private tasks: Task[] = [];
 
@@ -50,7 +31,8 @@ export class CommonService implements OnInit{
     isCompleted: false
   };
 
-  private selectedCategory = new BehaviorSubject(this.categories[0]);
+  public firstCategory = { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true };
+  private selectedCategory = new BehaviorSubject(this.firstCategory);
   public currentSelectedCategory$ = this.selectedCategory.asObservable();
   private selectedTask = new BehaviorSubject(this.task);
   public selectedTask$ = this.selectedTask.asObservable();
@@ -66,16 +48,17 @@ export class CommonService implements OnInit{
     return this.tasks;
   }
 
-  setSelectedTask(task: Task) {
-    this.selectedTask.next(task);
+  setCategories(categories:Category[]) {
+    this.categories = categories;
+    console.log(this.categories);
   }
 
-  getCategories(): Category[] {
+  getCategories() {
     return this.categories;
   }
 
-  addCategories(category: Category): void {
-    this.categories.push(category);
+  setSelectedTask(task: Task) {
+    this.selectedTask.next(task);
   }
 
   setSelectedCategory(category: Category): void {

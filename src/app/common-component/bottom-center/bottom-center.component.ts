@@ -3,6 +3,7 @@ import { Task } from 'src/app/task';
 import { Category } from 'src/app/category';
 import { CommonService } from 'src/app/common.service';
 import { Constant } from 'src/app/constant';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-bottom-center',
@@ -13,9 +14,9 @@ export class BottomCenterComponent implements OnInit, DoCheck {
 
   public selectedCategory!: Category;
   public categoryTitle = "";
-  public categoryList: Category[] = this.commonService.getCategories();
+  public categoryList: Category[] = this.commonService.categories;
   public taskName: string = "";
-  public tasks: Task[] = this.commonService.getTasks();
+  public tasks: Task[] = [];
   public pendingTasks: Task[] = [];
   public completedTasks: Task[] = [];
   public isImportantTask = false;
@@ -23,21 +24,28 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   public currentDate = new Date();
   public constant = new Constant();
 
-  constructor(public commonService: CommonService) { }
+  constructor(public commonService: CommonService, public dataService:DataService) { }
 
   ngOnInit(): void {
     this.commonService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category.name);
-    this.commonService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category);
-    this.renderPendingTask();
-    this.renderCompletedTask();
+    this.commonService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category); 
+    this.retrieveTasks();
   }
 
   ngDoCheck(): void {
     this.renderPendingTask();
     this.renderCompletedTask();
+
+  }
+
+  retrieveTasks() {
+    this.dataService.getTasks().subscribe((tasks:any)=>{
+      this.tasks = tasks;
+    })
   }
 
   public addTask(): void {
+    this.categoryList = this.commonService.getCategories();
     if (this.taskName.length > 0) {
       let task: Task;
       let selectedCategoryId = this.selectedCategory.id;
@@ -51,7 +59,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
         this.isImportantTask = false;
       }
       task = {
-        id: this.commonService.getTasks.length + 1,
+        id: 0,
         categoryIds: categoryIds,
         name: this.taskName,
         note: "",
@@ -60,12 +68,16 @@ export class BottomCenterComponent implements OnInit, DoCheck {
       }
       this.commonService.addTask(task);
       this.taskName = "";
+      this.dataService.addTask(task).subscribe(() => {
+        this.retrieveTasks();
+      })
     }
   }
 
   public isDefaultTask(id: number): boolean {
     let noOfDefaultCategory = 5;
     for (let i = 0; i < noOfDefaultCategory; i++) {
+      console.log(this.categoryList);
       if (this.categoryList[i].id === id) {
         return true;
       }
@@ -75,6 +87,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
 
   public renderPendingTask(): void {
     this.pendingTasks = [];
+    console.log(this.tasks);
     this.tasks.forEach(task => {
       if (!task.isCompleted) {
         task.categoryIds.forEach(categoryId => {
