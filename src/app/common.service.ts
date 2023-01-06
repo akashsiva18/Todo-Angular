@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Category } from './category';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Task } from './task';
 import { Constant } from './constant';
 import { DataService } from './data.service';
@@ -11,17 +11,11 @@ import { DataService } from './data.service';
 
 export class CommonService {
 
-  constructor(private dataService: DataService) {
-  }
-
   public constant = new Constant;
-
   public categories: Category[] = [];
   public categoriesBehaviorSubject = new BehaviorSubject(this.categories);
   public categories$ = this.categoriesBehaviorSubject.asObservable();
-
   private tasks: Task[] = [];
-
   private task: Task = {
     id: 0,
     name: '',
@@ -31,6 +25,8 @@ export class CommonService {
     isCompleted: false
   };
 
+  private retrievedTasks = new Subject<Task[]>();
+  public retrievedTasks$ = this.retrievedTasks.asObservable();
   public firstCategory = { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true };
   private selectedCategory = new BehaviorSubject(this.firstCategory);
   public currentSelectedCategory$ = this.selectedCategory.asObservable();
@@ -40,20 +36,31 @@ export class CommonService {
   public viewRightContainer = false;
   public applyClassCenter = this.constant.DEFAULT_VIEW;
 
+  constructor(private dataService: DataService) {
+    this.retrieveTasks();
+  }
+
   addTask(task: Task): void {
     this.tasks.unshift(task);
+  }
+
+  retrieveTasks() {
+    this.dataService.getTasks().subscribe((tasks: any) => {
+      this.tasks = tasks;
+      this.retrievedTasks.next(tasks);
+    })
   }
 
   getTasks(): Task[] {
     return this.tasks;
   }
 
-  setCategories(categories:Category[]) {
+  setCategories(categories: Category[]) {
     this.categories = categories;
     console.log(this.categories);
   }
 
-  getCategories() {
+  getCategories(): Category[] {
     return this.categories;
   }
 
@@ -89,7 +96,11 @@ export class CommonService {
       task.isImportant = false;
       let index = task.categoryIds.indexOf(2);
       task.categoryIds.splice(index, 1);
+      this.dataService.addTask(task);
     }
+    this.dataService.addTask(task).subscribe(() => {
+      this.retrieveTasks();
+    })
   }
 
   changeCompletedStatus(task: Task): void {
@@ -98,6 +109,9 @@ export class CommonService {
     } else {
       task.isCompleted = true;
     }
+    this.dataService.addTask(task).subscribe(() => {
+      this.retrieveTasks();
+    })
   }
 
   hasClass(event: any, className: string): boolean {

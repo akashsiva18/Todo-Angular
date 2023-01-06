@@ -24,24 +24,17 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   public currentDate = new Date();
   public constant = new Constant();
 
-  constructor(public commonService: CommonService, public dataService:DataService) { }
+  constructor(public commonService: CommonService, public dataService: DataService) { }
 
   ngOnInit(): void {
     this.commonService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category.name);
-    this.commonService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category); 
-    this.retrieveTasks();
+    this.commonService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category);
+    this.commonService.retrievedTasks$.subscribe(tasks => this.tasks = tasks);
   }
 
   ngDoCheck(): void {
     this.renderPendingTask();
     this.renderCompletedTask();
-
-  }
-
-  retrieveTasks() {
-    this.dataService.getTasks().subscribe((tasks:any)=>{
-      this.tasks = tasks;
-    })
   }
 
   public addTask(): void {
@@ -69,7 +62,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
       this.commonService.addTask(task);
       this.taskName = "";
       this.dataService.addTask(task).subscribe(() => {
-        this.retrieveTasks();
+        this.commonService.retrieveTasks();
       })
     }
   }

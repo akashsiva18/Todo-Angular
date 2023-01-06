@@ -22,4 +22,13 @@ export class TaskListComponent implements OnInit{
     this.commonService.setSelectedTask(task);
     this.commonService.rightContainerView();
   }
+  
+  changeTaskImportantStatus(task: Task) {
+    this.commonService.importantStatus(task);
+  }
+
+  changeTaskCompletedStatus(task:Task) {
+    this.commonService.changeCompletedStatus(task);
+  }
+
 }
