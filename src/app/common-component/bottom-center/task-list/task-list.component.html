@@ -1,8 +1,8 @@
 <ul class="added-task">
-  <li [ngClass]="commonService.applyClassCenter == constant.CENTER_VIEW ? 'task-middle':'task'"
-    *ngFor="let task of renderTasks" (click)="getSelectedTask(task)">
+  <li [ngClass]="taskService.applyClassCenter == constant.CENTER_VIEW ? 'task-middle':'task'"
+    *ngFor="let task of renderTasks | filterTask:filter" (click)="getSelectedTask(task)">
     <i [ngClass]="task.isCompleted ? 'fa-solid fa-circle-check': 'fa-regular fa-circle'"
-      (mouseover)="commonService.completedIconMouseIn($event)" (mouseout)="commonService.completedIconMouseOut($event)"
+      (mouseover)="taskService.completedIconMouseIn($event)" (mouseout)="taskService.completedIconMouseOut($event)"
       (click)="changeTaskCompletedStatus(task)"></i>
     <div class="task-name">
       <p class="hide-task-id">{{task.id}}</p>
@@ -10,10 +10,10 @@
       <p class="type-of-task">Tasks</p>
     </div>
     <div [ngClass]="{
-      'important': commonService.applyClassCenter === constant.DEFAULT_VIEW ,
-      'important-full':commonService.applyClassCenter === constant.FULL_VIEW,
-      'important-left':commonService.applyClassCenter === constant.LEFT_VIEW,
-      'important-middle': commonService.applyClassCenter === constant.CENTER_VIEW}">
+      'important': taskService.applyClassCenter === constant.DEFAULT_VIEW ,
+      'important-full':taskService.applyClassCenter === constant.FULL_VIEW,
+      'important-left':taskService.applyClassCenter === constant.LEFT_VIEW,
+      'important-middle': taskService.applyClassCenter === constant.CENTER_VIEW}">
       <i [ngClass]="task.isImportant ? 'fa-solid fa-star' : 'fa-regular fa-star'"
         (click)="changeTaskImportantStatus(task)" (click)="$event.stopPropagation()">
       </i>

@@ -1,4 +1,4 @@
 <div class="search-bar">
   <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="text" class="search-area" placeholder="Search" required>
+  <input type="text" class="search-area" placeholder="Search" (keyup)="setSearchTask(searchTask.value)" #searchTask required>
 </div>

@@ -7,6 +7,7 @@ import { CategoryListComponent } from './bottom-left/category-list/category-list
 import { CommonComponent } from './common-component.component';
 import { TaskListComponent } from './bottom-center/task-list/task-list.component';
 import { FormsModule } from '@angular/forms';
+import { FilterTaskPipe } from '../filter-task.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     BottomRightComponent,
     CategoryListComponent,
     CommonComponent,
-    TaskListComponent
+    TaskListComponent,
+    FilterTaskPipe
   ],
   imports: [
     CommonModule,
@@ -28,4 +30,4 @@ import { FormsModule } from '@angular/forms';
     CommonComponent
   ]
 })
-export class CommonComponentModule { }
+export class CommonComponentModule {}

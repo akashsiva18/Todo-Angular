@@ -9,8 +9,11 @@ import { DataService } from './data.service';
   providedIn: 'root'
 })
 
-export class CommonService {
+export class TaskService {
 
+  public filter: string = "";
+  public filterSubject = new BehaviorSubject(this.filter);
+  public filter$ = this.filterSubject.asObservable();
   public constant = new Constant;
   public categories: Category[] = [];
   public categoriesBehaviorSubject = new BehaviorSubject(this.categories);
@@ -24,7 +27,6 @@ export class CommonService {
     isImportant: false,
     isCompleted: false
   };
-
   private retrievedTasks = new Subject<Task[]>();
   public retrievedTasks$ = this.retrievedTasks.asObservable();
   public firstCategory = { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true };
@@ -40,13 +42,9 @@ export class CommonService {
     this.retrieveTasks();
   }
 
-  addTask(task: Task): void {
-    this.tasks.unshift(task);
-  }
-
   retrieveTasks() {
     this.dataService.getTasks().subscribe((tasks: any) => {
-      this.tasks = tasks;
+      this.tasks = tasks.reverse();
       this.retrievedTasks.next(tasks);
     })
   }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonService } from 'src/app/common.service';
+import { TaskService } from 'src/app/task.service';
 import { Task } from 'src/app/task';
 import { TaskListComponent } from '../bottom-center/task-list/task-list.component';
 
@@ -14,14 +14,14 @@ export class BottomRightComponent implements OnInit {
 
   public note = "";
 
-  constructor(public commonService: CommonService) { }
+  constructor(public TaskService: TaskService) { }
 
   ngOnInit(): void {
-    this.commonService.selectedTask$.subscribe(task => this.selectedTask = task);
+    this.TaskService.selectedTask$.subscribe(task => this.selectedTask = task);
   }
 
   hideRightContainer(): void {
-    this.commonService.hideRightContainer();
+    this.TaskService.hideRightContainer();
   }
 
   addNotes(): void {

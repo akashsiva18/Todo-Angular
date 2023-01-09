@@ -1,7 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { async } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/category';
-import { CommonService } from 'src/app/common.service';
+import { TaskService } from 'src/app/task.service';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class CategoryListComponent implements OnInit {
 
-  constructor(private commonService: CommonService, private dataService: DataService) { }
+  constructor(private TaskService: TaskService, private dataService: DataService) { }
 
   public selectedCategory?: String;
 
@@ -26,17 +25,17 @@ export class CategoryListComponent implements OnInit {
   getCategories(firstCall: boolean): void {
     this.dataService.getCategory().subscribe((res: any) => {
       this.categories = res;
-      this.commonService.categories = this.categories;
+      this.TaskService.categories = this.categories;
       if (!firstCall) {
-        this.commonService.setSelectedCategory(this.categories[this.categories.length - 1]);
+        this.TaskService.setSelectedCategory(this.categories[this.categories.length - 1]);
       }
-      this.commonService.setCategories(this.categories);
+      this.TaskService.setCategories(this.categories);
     });
   }
 
   onSelectCategory(category: Category): void {
     this.selectedCategory = category.name;
-    this.commonService.setSelectedCategory(category);
+    this.TaskService.setSelectedCategory(category);
   }
 
   addCategory(categoryName: string): void {
@@ -57,10 +56,10 @@ export class CategoryListComponent implements OnInit {
     }
     this.dataService.addCategory(category).subscribe(() => {
       this.selectedCategory = categoryName;
-      this.commonService.setSelectedCategory(category);
+      this.TaskService.setSelectedCategory(category);
       this.getCategories(false);
     });
-    // this.commonService.firstCategory = this.categories[this.categories.length-1];
+    // this.TaskService.firstCategory = this.categories[this.categories.length-1];
   }
 
   countExistCategory(name: String): number {

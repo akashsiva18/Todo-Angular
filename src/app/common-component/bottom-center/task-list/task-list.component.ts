@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommonService } from 'src/app/common.service';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TaskService } from 'src/app/task.service';
 import { Constant } from 'src/app/constant';
 import { Task } from 'src/app/task';
 
@@ -8,10 +8,17 @@ import { Task } from 'src/app/task';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
-export class TaskListComponent implements OnInit{
+export class TaskListComponent implements OnInit,DoCheck{
 
-  constructor(public commonService: CommonService) { }
+  public filter:string = "";
+
+  constructor(public taskService: TaskService) { }
+  ngDoCheck(): void {
+    this.filter = this.taskService.filter;
+  }
+
   ngOnInit(): void {
+    
   }
 
   @Input() renderTasks!: Task[];
@@ -19,16 +26,16 @@ export class TaskListComponent implements OnInit{
   public constant = new Constant();
 
   getSelectedTask(task: Task): void {
-    this.commonService.setSelectedTask(task);
-    this.commonService.rightContainerView();
+    this.taskService.setSelectedTask(task);
+    this.taskService.rightContainerView();
   }
   
   changeTaskImportantStatus(task: Task) {
-    this.commonService.importantStatus(task);
+    this.taskService.importantStatus(task);
   }
 
   changeTaskCompletedStatus(task:Task) {
-    this.commonService.changeCompletedStatus(task);
+    this.taskService.changeCompletedStatus(task);
   }
 
 }

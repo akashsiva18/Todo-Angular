@@ -1,7 +1,7 @@
 import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { Task } from 'src/app/task';
 import { Category } from 'src/app/category';
-import { CommonService } from 'src/app/common.service';
+import { TaskService } from 'src/app/task.service';
 import { Constant } from 'src/app/constant';
 import { DataService } from 'src/app/data.service';
 
@@ -14,7 +14,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
 
   public selectedCategory!: Category;
   public categoryTitle = "";
-  public categoryList: Category[] = this.commonService.categories;
+  public categoryList: Category[] = this.TaskService.categories;
   public taskName: string = "";
   public tasks: Task[] = [];
   public pendingTasks: Task[] = [];
@@ -24,12 +24,12 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   public currentDate = new Date();
   public constant = new Constant();
 
-  constructor(public commonService: CommonService, public dataService: DataService) { }
+  constructor(public TaskService: TaskService, public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.commonService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category.name);
-    this.commonService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category);
-    this.commonService.retrievedTasks$.subscribe(tasks => this.tasks = tasks);
+    this.TaskService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category.name);
+    this.TaskService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category);
+    this.TaskService.retrievedTasks$.subscribe(tasks => this.tasks = tasks);
   }
 
   ngDoCheck(): void {
@@ -38,7 +38,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   }
 
   public addTask(): void {
-    this.categoryList = this.commonService.getCategories();
+    this.categoryList = this.TaskService.getCategories();
     if (this.taskName.length > 0) {
       let task: Task;
       let selectedCategoryId = this.selectedCategory.id;
@@ -59,11 +59,10 @@ export class BottomCenterComponent implements OnInit, DoCheck {
         isImportant: this.isImportantTask,
         isCompleted: false
       }
-      this.commonService.addTask(task);
-      this.taskName = "";
       this.dataService.addTask(task).subscribe(() => {
-        this.commonService.retrieveTasks();
+        this.TaskService.retrieveTasks();
       })
+      this.taskName = "";
     }
   }
 
@@ -117,7 +116,7 @@ export class BottomCenterComponent implements OnInit, DoCheck {
   }
 
   toggleMenuAction(): void {
-    this.commonService.toggleMenuAction();
+    this.TaskService.toggleMenuAction();
   }
 
 }

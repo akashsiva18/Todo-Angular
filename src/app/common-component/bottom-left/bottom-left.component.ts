@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DoCheck, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Category } from 'src/app/category';
-import { CommonService } from 'src/app/common.service';
+import { TaskService } from 'src/app/task.service';
 import { DataService } from 'src/app/data.service';
 import { CategoryListComponent } from './category-list/category-list.component';
 
@@ -14,7 +14,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 
 export class BottomLeftComponent implements OnInit {
 
-  constructor(public commonService: CommonService,public dataService:DataService) { }
+  constructor(public TaskService: TaskService,public dataService:DataService) { }
   @ViewChild(CategoryListComponent) child !: CategoryListComponent;
   public selectedCategory?: String;
   public categoryName: string = "";
@@ -29,6 +29,6 @@ export class BottomLeftComponent implements OnInit {
   }
 
   toggleMenuAction() {
-    this.commonService.toggleMenuAction();
+    this.TaskService.toggleMenuAction();
   }
 }
