@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TaskService } from 'src/app/task.service';
+import { TaskService } from 'src/app/service/task.service'; 
 
 @Component({
   selector: 'app-search-bar',

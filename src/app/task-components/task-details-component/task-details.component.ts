@@ -1,14 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TaskService } from 'src/app/task.service';
+import { Component, OnInit } from '@angular/core';
+import { TaskService } from 'src/app/service/task.service'; 
 import { Task } from 'src/app/task';
-import { TaskListComponent } from '../bottom-center/task-list/task-list.component';
 
 @Component({
-  selector: 'app-bottom-right',
-  templateUrl: './bottom-right.component.html',
-  styleUrls: ['./bottom-right.component.scss']
+  selector: 'app-task-details',
+  templateUrl: './task-details.component.html',
+  styleUrls: ['./task-details.component.scss']
 })
-export class BottomRightComponent implements OnInit {
+export class TaskDetailsComponent implements OnInit {
 
   public selectedTask!: Task;
 
@@ -25,6 +24,7 @@ export class BottomRightComponent implements OnInit {
   }
 
   addNotes(): void {
+
     this.selectedTask.note = this.note;
   }
 }

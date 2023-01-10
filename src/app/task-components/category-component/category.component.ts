@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, DoCheck, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Category } from 'src/app/category';
-import { TaskService } from 'src/app/task.service';
-import { DataService } from 'src/app/data.service';
+import { TaskService } from 'src/app/service/task.service';
+import { DataService } from 'src/app/service/data.service'; 
 import { CategoryListComponent } from './category-list/category-list.component';
 
 @Component({
-  selector: 'app-bottom-left',
-  templateUrl: './bottom-left.component.html',
-  styleUrls: ['./bottom-left.component.scss']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.scss']
 })
 
-export class BottomLeftComponent implements OnInit {
+export class CategoryComponent implements OnInit {
 
   constructor(public TaskService: TaskService,public dataService:DataService) { }
   @ViewChild(CategoryListComponent) child !: CategoryListComponent;

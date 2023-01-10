@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Category } from './category';
+import { Category } from '../category'; 
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Task } from './task';
-import { Constant } from './constant';
+import { Task } from '../task';
+import { Constant } from '../constant';
 import { DataService } from './data.service';
 
 @Injectable({
@@ -40,6 +40,7 @@ export class TaskService {
 
   constructor(private dataService: DataService) {
     this.retrieveTasks();
+    this.setSelectedTask(1);
   }
 
   retrieveTasks() {
@@ -62,8 +63,10 @@ export class TaskService {
     return this.categories;
   }
 
-  setSelectedTask(task: Task) {
-    this.selectedTask.next(task);
+  setSelectedTask(taskId:number) {
+    this.dataService.getTaskById(taskId).subscribe((task:any) => {
+      this.selectedTask.next(task);
+    })
   }
 
   setSelectedCategory(category: Category): void {

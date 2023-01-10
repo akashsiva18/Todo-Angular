@@ -1,6 +1,6 @@
 <ul class="added-task">
   <li [ngClass]="taskService.applyClassCenter == constant.CENTER_VIEW ? 'task-middle':'task'"
-    *ngFor="let task of renderTasks | filterTask:filter" (click)="getSelectedTask(task)">
+    *ngFor="let task of renderTasks | filterTask:filter" (click)="getSelectedTaskId(task.id)">
     <i [ngClass]="task.isCompleted ? 'fa-solid fa-circle-check': 'fa-regular fa-circle'"
       (mouseover)="taskService.completedIconMouseIn($event)" (mouseout)="taskService.completedIconMouseOut($event)"
       (click)="changeTaskCompletedStatus(task)"></i>

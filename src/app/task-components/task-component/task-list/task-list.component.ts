@@ -1,5 +1,5 @@
 import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TaskService } from 'src/app/task.service';
+import { TaskService } from 'src/app/service/task.service'; 
 import { Constant } from 'src/app/constant';
 import { Task } from 'src/app/task';
 
@@ -11,22 +11,21 @@ import { Task } from 'src/app/task';
 export class TaskListComponent implements OnInit,DoCheck{
 
   public filter:string = "";
+  @Input() renderTasks!: Task[];
 
   constructor(public taskService: TaskService) { }
+
   ngDoCheck(): void {
     this.filter = this.taskService.filter;
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {  
   }
-
-  @Input() renderTasks!: Task[];
 
   public constant = new Constant();
 
-  getSelectedTask(task: Task): void {
-    this.taskService.setSelectedTask(task);
+  getSelectedTaskId(id: number): void {
+    this.taskService.setSelectedTask(id);
     this.taskService.rightContainerView();
   }
   
@@ -37,5 +36,4 @@ export class TaskListComponent implements OnInit,DoCheck{
   changeTaskCompletedStatus(task:Task) {
     this.taskService.changeCompletedStatus(task);
   }
-
 }

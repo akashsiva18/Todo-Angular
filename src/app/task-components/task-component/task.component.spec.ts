@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BottomLeftComponent } from './bottom-left.component';
+import { TaskComponent } from './task.component';
 
-describe('BottomLeftComponent', () => {
-  let component: BottomLeftComponent;
-  let fixture: ComponentFixture<BottomLeftComponent>;
+describe('BottomCenterComponent', () => {
+  let component: TaskComponent;
+  let fixture: ComponentFixture<TaskComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BottomLeftComponent ]
+      declarations: [ TaskComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BottomLeftComponent);
+    fixture = TestBed.createComponent(TaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

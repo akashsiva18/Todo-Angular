@@ -3,10 +3,10 @@ import { Category } from "../category";
 
 @Component({
   selector: "app-common-Component",
-  templateUrl: "./common-component.component.html",
+  templateUrl: "./task-component.component.html",
 })
 
-export class CommonComponent implements OnInit {
+export class TaskMainComponent implements OnInit {
 
   public selectedCategoryName: string = "";
 

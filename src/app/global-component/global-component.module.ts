@@ -8,7 +8,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { FilterTaskPipe } from '../filter-task.pipe';
+import { FilterTaskPipe } from '../pipe/filter-task.pipe';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

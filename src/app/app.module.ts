@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { GlobalComponentModule } from './global-component/global-component.module';
-import { CommonComponentModule } from './common-component/common-component.module';
 import { HttpClientModule } from '@angular/common/http';
+import { TaskMainComponentModule } from './task-components/task-component.module';
+import { GlobalComponentModule } from './global-component/global-component.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     GlobalComponentModule,
-    CommonComponentModule
+    TaskMainComponentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

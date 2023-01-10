@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/category';
-import { TaskService } from 'src/app/task.service';
-import { DataService } from 'src/app/data.service';
+import { TaskService } from 'src/app/service/task.service';
+import { DataService } from 'src/app/service/data.service'; 
 
 @Component({
   selector: 'app-category-list',

@@ -1,16 +1,16 @@
 import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { Task } from 'src/app/task';
 import { Category } from 'src/app/category';
-import { TaskService } from 'src/app/task.service';
+import { TaskService } from 'src/app/service/task.service'; 
 import { Constant } from 'src/app/constant';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
-  selector: 'app-bottom-center',
-  templateUrl: "./bottom-center.component.html",
-  styleUrls: ['./bottom-center.component.scss']
+  selector: 'app-task',
+  templateUrl: "./task.component.html",
+  styleUrls: ['./task.component.scss']
 })
-export class BottomCenterComponent implements OnInit, DoCheck {
+export class TaskComponent implements OnInit, DoCheck {
 
   public selectedCategory!: Category;
   public categoryTitle = "";
