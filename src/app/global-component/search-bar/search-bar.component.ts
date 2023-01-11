@@ -11,9 +11,7 @@ export class SearchBarComponent {
   constructor(private taskService:TaskService){}
 
   setSearchTask(input:string) {
-    this.taskService.filter = input; //event.target.value;
-    //console.log(event.target.value);
-    console.log(input);
+    this.taskService.filter = input;
   }
 
 }

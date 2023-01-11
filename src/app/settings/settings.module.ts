@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { SettingComponent } from './setting.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    SettingComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    AppRoutingModule
+  ],
+  exports: [
+    SettingComponent
   ]
 })
 export class SettingsModule { }

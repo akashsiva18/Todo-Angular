@@ -69,7 +69,6 @@ export class TaskComponent implements OnInit, DoCheck {
   public isDefaultTask(id: number): boolean {
     let noOfDefaultCategory = 5;
     for (let i = 0; i < noOfDefaultCategory; i++) {
-      console.log(this.categoryList);
       if (this.categoryList[i].id === id) {
         return true;
       }
@@ -79,7 +78,6 @@ export class TaskComponent implements OnInit, DoCheck {
 
   public renderPendingTask(): void {
     this.pendingTasks = [];
-    console.log(this.tasks);
     this.tasks.forEach(task => {
       if (!task.isCompleted) {
         task.categoryIds.forEach(categoryId => {

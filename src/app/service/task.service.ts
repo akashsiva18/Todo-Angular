@@ -56,7 +56,6 @@ export class TaskService {
 
   setCategories(categories: Category[]) {
     this.categories = categories;
-    console.log(this.categories);
   }
 
   getCategories(): Category[] {

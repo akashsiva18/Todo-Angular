@@ -1,11 +1,14 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TaskMainComponentModule } from './task-components/task-component.module';
 import { GlobalComponentModule } from './global-component/global-component.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { HTTPInterceptor } from './interceptor/interceptor.interceptor';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -17,9 +20,18 @@ import { GlobalComponentModule } from './global-component/global-component.modul
     AppRoutingModule,
     FormsModule,
     GlobalComponentModule,
-    TaskMainComponentModule
+    TaskMainComponentModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : HTTPInterceptor,
+      multi:true
+    }
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
