@@ -18,7 +18,6 @@ export class HTTPInterceptor implements HttpInterceptor {
     setTimeout(() => {
       this.spinner.hide();
     }, 1000);
-    console.log("working");
     return next.handle(request);
   }
 }

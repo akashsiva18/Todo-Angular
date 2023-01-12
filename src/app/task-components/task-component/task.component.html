@@ -1,22 +1,22 @@
 <div [ngClass]="{
-  'center-container': TaskService.applyClassCenter === constant.DEFAULT_VIEW,
-  'center-container-full-screen':TaskService.applyClassCenter === constant.FULL_VIEW,
-  'center-container-left-screen':TaskService.applyClassCenter === constant.LEFT_VIEW,
-  'shrink-center-container': TaskService.applyClassCenter === constant.CENTER_VIEW 
+  'center-container': taskService.applyClassCenter === constant.DEFAULT_VIEW,
+  'center-container-full-screen':taskService.applyClassCenter === constant.FULL_VIEW,
+  'center-container-left-screen':taskService.applyClassCenter === constant.LEFT_VIEW,
+  'shrink-center-container': taskService.applyClassCenter === constant.CENTER_VIEW 
 }">
   <div class="title-and-Other-block">
     <div class="title-block">
       <div class="title-block-left">
-        <i [ngClass]="TaskService.viewLeftContainer? selectedCategory.iconClass:'fa-solid fa-bars'"
+        <i [ngClass]="taskService.viewLeftContainer? selectedCategory.iconClass:'fa-solid fa-bars'"
           id="full-screen-icon" (click)="toggleMenuAction()"></i>
         <p class="title">{{categoryTitle}}</p>
         <button><i class="fa-solid fa-ellipsis"></i></button>
       </div>
       <div class="title-block-right">
-        <div [ngClass]="TaskService.applyClassCenter == constant.CENTER_VIEW  ? 'sort-middle':'sort'">
+        <div [ngClass]="taskService.applyClassCenter == constant.CENTER_VIEW  ? 'sort-middle':'sort'">
           <i class="fa-solid fa-arrow-right-arrow-left"></i> Sort
         </div>
-        <div [ngClass]="TaskService.applyClassCenter == constant.CENTER_VIEW ? 'suggestion-middle':'suggestion'">
+        <div [ngClass]="taskService.applyClassCenter == constant.CENTER_VIEW ? 'suggestion-middle':'suggestion'">
           <i class="fa-regular fa-lightbulb"></i> Suggestions
         </div>
       </div>
@@ -25,14 +25,14 @@
       {{currentDate| date : 'EEEE, MMMM d'}}
     </div>
   </div>
-  <div [ngClass]="TaskService.applyClassCenter == constant.CENTER_VIEW ?'add-task-bar-middle' : 'add-task-bar'">
+  <div [ngClass]="taskService.applyClassCenter == constant.CENTER_VIEW ?'add-task-bar-middle' : 'add-task-bar'">
     <button>
       <i class="fa-solid fa-plus" id="add-task-icon"></i>
     </button>
     <input [(ngModel)]="taskName" type="text" class="add-task-input" placeholder="Add a task"
       (keydown.enter)="addTask()">
   </div>
-  <div [ngClass]="TaskService.applyClassCenter == constant.CENTER_VIEW ?'add-task-option-bar-middle' : 'add-task-option-bar'">
+  <div [ngClass]="taskService.applyClassCenter == constant.CENTER_VIEW ?'add-task-option-bar-middle' : 'add-task-option-bar'">
     <div class="add-task-option">
       <i class="fa-regular fa-calendar"></i>
       <i class="fa-regular fa-bell"></i>

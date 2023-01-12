@@ -15,7 +15,6 @@ export class CategoryComponent implements OnInit {
 
   constructor(public TaskService: TaskService,public dataService:DataService) { }
   @ViewChild(CategoryListComponent) child !: CategoryListComponent;
-  public selectedCategory?: String;
   public categoryName: string = "";
   public addedCategory!:Category;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/category';
 import { TaskService } from 'src/app/service/task.service';
-import { DataService } from 'src/app/service/data.service'; 
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-category-list',
@@ -10,7 +10,7 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class CategoryListComponent implements OnInit {
 
-  constructor(private TaskService: TaskService, private dataService: DataService) { }
+  constructor(private taskService: TaskService, private dataService: DataService) { }
 
   public selectedCategory?: String;
 
@@ -18,24 +18,25 @@ export class CategoryListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.selectedCategory = "My Day";
+    this.taskService.currentSelectedCategory$.subscribe((category) => {
+      this.selectedCategory = category.name;
+    })
     this.getCategories(true);
   }
 
   getCategories(firstCall: boolean): void {
     this.dataService.getCategory().subscribe((res: any) => {
       this.categories = res;
-      this.TaskService.categories = this.categories;
+      this.taskService.categories = this.categories;
       if (!firstCall) {
-        this.TaskService.setSelectedCategory(this.categories[this.categories.length - 1]);
+        this.taskService.setSelectedCategory(this.categories[this.categories.length - 1]);
       }
-      this.TaskService.setCategories(this.categories);
+      this.taskService.setCategories(this.categories);
     });
   }
 
   onSelectCategory(category: Category): void {
-    this.selectedCategory = category.name;
-    this.TaskService.setSelectedCategory(category);
+    this.taskService.setSelectedCategory(category);
   }
 
   addCategory(categoryName: string): void {
@@ -56,10 +57,9 @@ export class CategoryListComponent implements OnInit {
     }
     this.dataService.addCategory(category).subscribe(() => {
       this.selectedCategory = categoryName;
-      this.TaskService.setSelectedCategory(category);
+      this.taskService.setSelectedCategory(category);
       this.getCategories(false);
     });
-    // this.TaskService.firstCategory = this.categories[this.categories.length-1];
   }
 
   countExistCategory(name: String): number {

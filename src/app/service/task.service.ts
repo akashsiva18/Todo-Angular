@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category } from '../category'; 
+import { Category } from '../category';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Task } from '../task';
 import { Constant } from '../constant';
@@ -11,14 +11,13 @@ import { DataService } from './data.service';
 
 export class TaskService {
 
+  public constant = new Constant;
   public filter: string = "";
   public filterSubject = new BehaviorSubject(this.filter);
   public filter$ = this.filterSubject.asObservable();
-  public constant = new Constant;
   public categories: Category[] = [];
   public categoriesBehaviorSubject = new BehaviorSubject(this.categories);
   public categories$ = this.categoriesBehaviorSubject.asObservable();
-  private tasks: Task[] = [];
   private task: Task = {
     id: 0,
     name: '',
@@ -37,24 +36,19 @@ export class TaskService {
   public viewLeftContainer = true;
   public viewRightContainer = false;
   public applyClassCenter = this.constant.DEFAULT_VIEW;
+  public currentTaskSelectedId = 0;
 
   constructor(private dataService: DataService) {
-    this.retrieveTasks();
     this.setSelectedTask(1);
   }
 
   retrieveTasks() {
     this.dataService.getTasks().subscribe((tasks: any) => {
-      this.tasks = tasks.reverse();
-      this.retrievedTasks.next(tasks);
+      this.retrievedTasks.next(tasks.reverse());
     })
   }
 
-  getTasks(): Task[] {
-    return this.tasks;
-  }
-
-  setCategories(categories: Category[]) {
+  setCategories(categories: Category[]): void {
     this.categories = categories;
   }
 
@@ -62,9 +56,13 @@ export class TaskService {
     return this.categories;
   }
 
-  setSelectedTask(taskId:number) {
-    this.dataService.getTaskById(taskId).subscribe((task:any) => {
+  setSelectedTask(taskId?:number): void {
+    if(taskId === undefined) {
+      taskId = this.currentTaskSelectedId;
+    }
+    this.dataService.getTaskById(taskId).subscribe((task: any) => {
       this.selectedTask.next(task);
+      this.currentTaskSelectedId = task.id;
     })
   }
 
@@ -96,7 +94,6 @@ export class TaskService {
       task.isImportant = false;
       let index = task.categoryIds.indexOf(2);
       task.categoryIds.splice(index, 1);
-      this.dataService.addTask(task);
     }
     this.dataService.addTask(task).subscribe(() => {
       this.retrieveTasks();

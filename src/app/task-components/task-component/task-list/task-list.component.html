@@ -3,7 +3,7 @@
     *ngFor="let task of renderTasks | filterTask:filter" (click)="getSelectedTaskId(task.id)">
     <i [ngClass]="task.isCompleted ? 'fa-solid fa-circle-check': 'fa-regular fa-circle'"
       (mouseover)="taskService.completedIconMouseIn($event)" (mouseout)="taskService.completedIconMouseOut($event)"
-      (click)="changeTaskCompletedStatus(task)"></i>
+      (click)="changeTaskCompletedStatus(task)" (click)="taskService.setSelectedTask()"></i>
     <div class="task-name">
       <p class="hide-task-id">{{task.id}}</p>
       <p [class.strike]="task.isCompleted">{{task.name}}</p>
@@ -15,7 +15,7 @@
       'important-left':taskService.applyClassCenter === constant.LEFT_VIEW,
       'important-middle': taskService.applyClassCenter === constant.CENTER_VIEW}">
       <i [ngClass]="task.isImportant ? 'fa-solid fa-star' : 'fa-regular fa-star'"
-        (click)="changeTaskImportantStatus(task)" (click)="$event.stopPropagation()">
+        (click)="changeTaskImportantStatus(task)" (click)="$event.stopPropagation()" (click)="taskService.setSelectedTask()">
       </i>
     </div>
   </li>

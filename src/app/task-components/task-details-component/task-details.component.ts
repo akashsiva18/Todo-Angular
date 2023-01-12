@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from 'src/app/service/task.service'; 
+import { DataService } from 'src/app/service/data.service';
+import { TaskService } from 'src/app/service/task.service';
 import { Task } from 'src/app/task';
 
 @Component({
@@ -13,18 +14,23 @@ export class TaskDetailsComponent implements OnInit {
 
   public note = "";
 
-  constructor(public TaskService: TaskService) { }
+  constructor(public taskService: TaskService, public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.TaskService.selectedTask$.subscribe(task => this.selectedTask = task);
+    this.taskService.setSelectedTask();
+    this.taskService.selectedTask$.subscribe(task => {
+      this.selectedTask = task;
+      this.note = task.note;
+    });
   }
 
   hideRightContainer(): void {
-    this.TaskService.hideRightContainer();
+    this.taskService.hideRightContainer();
   }
 
   addNotes(): void {
-
     this.selectedTask.note = this.note;
+    this.dataService.addTask(this.selectedTask).subscribe(() => {
+    });
   }
 }

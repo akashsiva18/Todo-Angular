@@ -1,7 +1,7 @@
 import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 import { Task } from 'src/app/task';
 import { Category } from 'src/app/category';
-import { TaskService } from 'src/app/service/task.service'; 
+import { TaskService } from 'src/app/service/task.service';
 import { Constant } from 'src/app/constant';
 import { DataService } from 'src/app/service/data.service';
 
@@ -14,7 +14,7 @@ export class TaskComponent implements OnInit, DoCheck {
 
   public selectedCategory!: Category;
   public categoryTitle = "";
-  public categoryList: Category[] = this.TaskService.categories;
+  public categoryList: Category[] = this.taskService.categories;
   public taskName: string = "";
   public tasks: Task[] = [];
   public pendingTasks: Task[] = [];
@@ -24,12 +24,13 @@ export class TaskComponent implements OnInit, DoCheck {
   public currentDate = new Date();
   public constant = new Constant();
 
-  constructor(public TaskService: TaskService, public dataService: DataService) { }
+  constructor(public taskService: TaskService, public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.TaskService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category.name);
-    this.TaskService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category);
-    this.TaskService.retrievedTasks$.subscribe(tasks => this.tasks = tasks);
+    this.taskService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category.name);
+    this.taskService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category);
+    this.taskService.retrieveTasks();
+    this.taskService.retrievedTasks$.subscribe(tasks => this.tasks = tasks);
   }
 
   ngDoCheck(): void {
@@ -38,7 +39,7 @@ export class TaskComponent implements OnInit, DoCheck {
   }
 
   public addTask(): void {
-    this.categoryList = this.TaskService.getCategories();
+    this.categoryList = this.taskService.getCategories();
     if (this.taskName.length > 0) {
       let task: Task;
       let selectedCategoryId = this.selectedCategory.id;
@@ -60,7 +61,7 @@ export class TaskComponent implements OnInit, DoCheck {
         isCompleted: false
       }
       this.dataService.addTask(task).subscribe(() => {
-        this.TaskService.retrieveTasks();
+        this.taskService.retrieveTasks();
       })
       this.taskName = "";
     }
@@ -114,7 +115,6 @@ export class TaskComponent implements OnInit, DoCheck {
   }
 
   toggleMenuAction(): void {
-    this.TaskService.toggleMenuAction();
+    this.taskService.toggleMenuAction();
   }
-
 }
