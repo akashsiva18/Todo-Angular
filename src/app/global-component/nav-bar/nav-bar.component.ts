@@ -7,13 +7,4 @@ import { Component } from '@angular/core';
 })
 export class NavBarComponent {
 
-  public settingRouting = '/setting';
-
-  changeRouterLink() {
-    if(this.settingRouting == '/setting') {
-      this.settingRouting = '';
-    } else {
-      this.settingRouting = '/setting';
-    }
-  }
 }

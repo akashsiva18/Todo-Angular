@@ -26,20 +26,33 @@ export class TaskComponent implements OnInit, DoCheck {
 
   constructor(public taskService: TaskService, public dataService: DataService) { }
 
+  /**
+   * Subscribe to the currentSelectedCategory$ observable in the taskService, and when it emits a
+   * new value, we set the categoryTitle to the name of the category, and the selectedCategory to the
+   * category itself and retrieve task from taskService and subscribe the retrieved task observable.
+   */
   ngOnInit(): void {
-    this.taskService.currentSelectedCategory$.subscribe(category => this.categoryTitle = category.name);
-    this.taskService.currentSelectedCategory$.subscribe(category => this.selectedCategory = category);
+    this.taskService.currentSelectedCategory$.subscribe(category => {
+      this.categoryTitle = category.name;
+      this.selectedCategory = category;
+    });
     this.taskService.retrieveTasks();
     this.taskService.retrievedTasks$.subscribe(tasks => this.tasks = tasks);
   }
 
+  /**
+   * The ngDoCheck function is called whenever the component is checked for changes.
+   */
   ngDoCheck(): void {
     this.renderPendingTask();
     this.renderCompletedTask();
   }
 
+  /**
+   * Add a task to the database.
+   */
   public addTask(): void {
-    this.categoryList = this.taskService.getCategories();
+    this.categoryList = this.taskService.categories;
     if (this.taskName.length > 0) {
       let task: Task;
       let selectedCategoryId = this.selectedCategory.id;
@@ -67,6 +80,13 @@ export class TaskComponent implements OnInit, DoCheck {
     }
   }
 
+
+  /**
+   * Checks if the category is a default category or not
+   * 
+   * @param {number} id - The id of the category
+   * @return {boolean}
+   */
   public isDefaultTask(id: number): boolean {
     let noOfDefaultCategory = 5;
     for (let i = 0; i < noOfDefaultCategory; i++) {
@@ -77,6 +97,10 @@ export class TaskComponent implements OnInit, DoCheck {
     return false;
   }
 
+  /**
+   * Render the pending task by using Task list and check the task status if is not completed then add 
+   * to the pending task List.
+   */
   public renderPendingTask(): void {
     this.pendingTasks = [];
     this.tasks.forEach(task => {
@@ -90,6 +114,11 @@ export class TaskComponent implements OnInit, DoCheck {
     });
   }
 
+  /**
+   * Render the Completed task by using Task list and checks the category is Important or Planned if true
+   * then it not generate any completed Task else check the task status if is completed then add 
+   * to the completedTasks task List.
+   */
   public renderCompletedTask(): void {
     this.completedTasks = [];
     if (!(this.selectedCategory.id === this.constant.IMPORTANT_ID
@@ -106,6 +135,9 @@ export class TaskComponent implements OnInit, DoCheck {
     }
   }
 
+  /**
+   * If the hideCompletedTask variable is true, set it to false. If it's false, set it to true
+   */
   showAndHideCompletedTask(): void {
     if (this.hideCompletedTask == true) {
       this.hideCompletedTask = false;
@@ -114,6 +146,9 @@ export class TaskComponent implements OnInit, DoCheck {
     }
   }
 
+  /**
+   * It calls the toggleMenuAction function in the taskService.ts file
+   */
   toggleMenuAction(): void {
     this.taskService.toggleMenuAction();
   }

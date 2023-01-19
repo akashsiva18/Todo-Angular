@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TaskService } from 'src/app/service/task.service'; 
+import { TaskService } from 'src/app/service/task.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -8,9 +8,15 @@ import { TaskService } from 'src/app/service/task.service';
 })
 export class SearchBarComponent {
 
-  constructor(private taskService:TaskService){}
+  constructor(private taskService: TaskService) { }
 
-  setSearchTask(input:string) {
+  /**
+   * takes a string as an argument and sets the filter property of the taskService to the
+   * value of the input
+   * 
+   * @param {string} input - The value of the input field.
+   */
+  setSearchTask(input: string): void {
     this.taskService.filter = input;
   }
 

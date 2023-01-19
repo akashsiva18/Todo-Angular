@@ -16,6 +16,10 @@ export class TaskDetailsComponent implements OnInit {
 
   constructor(public taskService: TaskService, public dataService: DataService) { }
 
+  /**
+   * Subscribing to the selectedTask$ observable, and when it emits a value, that setting the
+   * selectedTask property to the emitted value.
+   */
   ngOnInit(): void {
     this.taskService.setSelectedTask();
     this.taskService.selectedTask$.subscribe(task => {
@@ -24,10 +28,17 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the hideRightContainer function in the taskService.
+   */
   hideRightContainer(): void {
     this.taskService.hideRightContainer();
   }
 
+  /**
+   * The function takes the note that was typed into the textarea and adds it to the selectedTask
+   * object. Then it calls the addTask function in the dataService.
+   */
   addNotes(): void {
     this.selectedTask.note = this.note;
     this.dataService.addTask(this.selectedTask).subscribe(() => {
