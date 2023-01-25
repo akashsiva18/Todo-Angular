@@ -17,9 +17,9 @@ export class CategoryListComponent implements OnInit {
   public categories: Category[] = [];
 
   /**
-   * subscribe to the currentSelectedCategory$ observable in the taskService and set the
+   * Subscribe to the currentSelectedCategory$ observable in the taskService and set the
    * selectedCategory variable to the name of the category that is passed in and 
-   * retrieve the categories form the data base. 
+   * retrieve the categories form the database. 
    */
   ngOnInit(): void {
     this.taskService.currentSelectedCategory$.subscribe((category) => {
@@ -30,15 +30,15 @@ export class CategoryListComponent implements OnInit {
 
   /**
    * Retrieves the categories from the database and sets the categories to the categories
-   * retrieved from the database
+   * retrieved from the database.
    * 
-   * @param {boolean} firstCall - boolean - this is a boolean that is passed in to determine if this is
+   * @param {boolean} firstCall - boolean - this is a boolean that is passed in to check if this is
    * the first time the categories are being retrieved. If it is, then the last category in the list is
    * selected.
    */
-  getCategories(firstCall: boolean): void {
-    this.dataService.retrieveCategories().subscribe((res: any) => {
-      this.categories = res;
+  private getCategories(firstCall: boolean): void {
+    this.dataService.retrieveCategories().subscribe((categories: any) => {
+      this.categories = categories;
       this.taskService.categories = this.categories;
       if (!firstCall) {
         this.taskService.setSelectedCategory(this.categories[this.categories.length - 1]);
@@ -52,7 +52,7 @@ export class CategoryListComponent implements OnInit {
    * 
    * @param {Category} category - Category - this is the category that was selected by the user.
    */
-  onSelectCategory(category: Category): void {
+  public onSelectCategory(category: Category): void {
     this.taskService.setSelectedCategory(category);
   }
 
@@ -61,7 +61,7 @@ export class CategoryListComponent implements OnInit {
    * 
    * @param {string} categoryName - The name of the category to be added.
    */
-  addCategory(categoryName: string): void {
+  public addCategory(categoryName: string): void {
     if (categoryName.trim().length == 0) {
       categoryName = "Untitled list";
     }
@@ -91,7 +91,7 @@ export class CategoryListComponent implements OnInit {
    * @param {String} name - The name of the category.
    * @return The number of categories that have the same name as the name passed in.
    */
-  countExistCategory(name: String): number {
+  private countExistCategory(name: String): number {
     var count = 0;
     this.categories.forEach(category => {
       if (category.name.split(" (", 1)[0] === name) {

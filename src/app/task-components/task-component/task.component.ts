@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Task } from 'src/app/task';
 import { Category } from 'src/app/category';
 import { TaskService } from 'src/app/service/task.service';
@@ -80,7 +80,6 @@ export class TaskComponent implements OnInit, DoCheck {
     }
   }
 
-
   /**
    * Checks if the category is a default category or not
    * 
@@ -138,7 +137,7 @@ export class TaskComponent implements OnInit, DoCheck {
   /**
    * If the hideCompletedTask variable is true, set it to false. If it's false, set it to true
    */
-  showAndHideCompletedTask(): void {
+  public showAndHideCompletedTask(): void {
     if (this.hideCompletedTask == true) {
       this.hideCompletedTask = false;
     } else {
@@ -149,7 +148,9 @@ export class TaskComponent implements OnInit, DoCheck {
   /**
    * It calls the toggleMenuAction function in the taskService.ts file
    */
-  toggleMenuAction(): void {
-    this.taskService.toggleMenuAction();
+  public toggleMenuAction(): void {
+    if (this.taskService.viewLeftContainer == false) {
+      this.taskService.toggleMenuAction();
+    }
   }
 }

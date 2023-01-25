@@ -31,7 +31,7 @@ export class TaskDetailsComponent implements OnInit {
   /**
    * Calls the hideRightContainer function in the taskService.
    */
-  hideRightContainer(): void {
+  public hideRightContainer(): void {
     this.taskService.hideRightContainer();
   }
 
@@ -39,7 +39,7 @@ export class TaskDetailsComponent implements OnInit {
    * The function takes the note that was typed into the textarea and adds it to the selectedTask
    * object. Then it calls the addTask function in the dataService.
    */
-  addNotes(): void {
+  public addNotes(): void {
     this.selectedTask.note = this.note;
     this.dataService.addTask(this.selectedTask).subscribe(() => {
     });

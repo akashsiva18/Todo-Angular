@@ -11,13 +11,13 @@ export class SearchBarComponent {
   constructor(private taskService: TaskService) { }
 
   /**
-   * takes a string as an argument and sets the filter property of the taskService to the
+   * Takes a string as an argument and sets the filter property of the taskService to the
    * value of the input
    * 
    * @param {string} input - The value of the input field.
    */
-  setSearchTask(input: string): void {
-    this.taskService.filter = input;
+  public setSearchTask(input: string): void {
+    this.taskService.setFilter(input);
   }
 
 }

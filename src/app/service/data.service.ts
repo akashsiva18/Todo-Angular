@@ -24,7 +24,7 @@ export class DataService {
    * 
    * @return Observable<Object>
    */
-  retrieveCategories(): Observable<Object> {
+  public retrieveCategories(): Observable<Object> {
     return this.http.get(this.baseUrl + "categories");
   }
 
@@ -35,7 +35,7 @@ export class DataService {
    * @param {Category} category - Category - The category object that we want to add to the database.
    * @return Observable<Object>
    */
-  addCategory(category: Category): Observable<Object> {
+  public addCategory(category: Category): Observable<Object> {
     return this.http.post(this.baseUrl + "category", JSON.stringify(category), this.httpOptions)
   }
 
@@ -46,7 +46,7 @@ export class DataService {
    * @param {Task} task - The task object that we want to add to the database.
    * @return Observable<Object>
    */
-  addTask(task: Task): Observable<Object> {
+  public addTask(task: Task): Observable<Object> {
     return this.http.post(this.baseUrl + "task", JSON.stringify(task), this.httpOptions);
   }
 
@@ -55,7 +55,7 @@ export class DataService {
    * 
    * @return Observable<Object>
    */
-  retrieveTasks(): Observable<Object> {
+  public retrieveTasks(): Observable<Object> {
     return this.http.get(this.baseUrl + "tasks");
   }
 
@@ -65,7 +65,7 @@ export class DataService {
    * @param {number} id - number - The id of the task to be retrieved.
    * @return Observable<Object>
    */
-  retrieveTaskById(id: number): Observable<Object> {
+  public retrieveTaskById(id: number): Observable<Object> {
     return this.http.get(this.baseUrl + "tasks\\" + id);
   }
 }

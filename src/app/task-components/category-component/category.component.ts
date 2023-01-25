@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Category } from 'src/app/category';
 import { TaskService } from 'src/app/service/task.service';
@@ -24,7 +23,7 @@ export class CategoryComponent implements OnInit {
   /**
    * Add Category to the database by using the child method AddCategory. 
    */
-  addCategory(): void {
+  public addCategory(): void {
     this.child.addCategory(this.categoryName);
     this.categoryName = "";
   }
@@ -32,7 +31,7 @@ export class CategoryComponent implements OnInit {
   /**
    * Calls the toggleMenuAction function in the TaskService
    */
-  toggleMenuAction(): void {
+  public toggleMenuAction(): void {
     this.TaskService.toggleMenuAction();
   }
 }

@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +9,7 @@ import { GlobalComponentModule } from './global-component/global-component.modul
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HTTPInterceptor } from './interceptor/interceptor.interceptor';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     GlobalComponentModule,
     TaskMainComponentModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     {

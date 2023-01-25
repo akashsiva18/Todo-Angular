@@ -11,11 +11,12 @@ import { DataService } from './data.service';
 
 export class TaskService {
 
-  public constant = new Constant;
+  private constant = new Constant;
   public filter: string = "";
-  public filter$ = of(this.filter);
+  private filterSubject = new BehaviorSubject<string>(this.filter);
+  public filter$ = this.filterSubject.asObservable();
   public categories: Category[] = [];
-  public categoriesBehaviorSubject = new BehaviorSubject(this.categories);
+  private categoriesBehaviorSubject = new BehaviorSubject(this.categories);
   public categories$ = this.categoriesBehaviorSubject.asObservable();
   private task: Task = {
     id: 0,
@@ -27,7 +28,7 @@ export class TaskService {
   };
   private retrievedTasks = new Subject<Task[]>();
   public retrievedTasks$ = this.retrievedTasks.asObservable();
-  public firstCategory = { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true };
+  private firstCategory = { id: 1, name: "My Day", iconClass: "fa-solid fa-sun", count: 0, isLastDefaultCategory: false, isDefaultCategory: true };
   private selectedCategory = new BehaviorSubject(this.firstCategory);
   public currentSelectedCategory$ = this.selectedCategory.asObservable();
   private selectedTask = new BehaviorSubject(this.task);
@@ -45,10 +46,19 @@ export class TaskService {
    * Subscribe to the observable returned by the retrieveTasks() function in the data service, and
    * then reverse the order of the tasks array and store it to the retrievedTasks BehaviorSubject.
    */
-  retrieveTasks(): void {
+  public retrieveTasks(): void {
     this.dataService.retrieveTasks().subscribe((tasks: any) => {
       this.retrievedTasks.next(tasks.reverse());
     })
+  }
+
+  /**
+   * Takes a string as an argument and passes it to the filterSubject's next
+   * function
+   * @param {string} filter - The filter string to be applied to the list of items.
+   */
+  public setFilter(filter:string) {
+    this.filterSubject.next(filter);
   }
 
   /**
@@ -58,7 +68,7 @@ export class TaskService {
    * @param {number} [taskId] - the id of the task to be retrieved. If task Id not provided, the current task
    * id is used to retrieve
    */
-  setSelectedTask(taskId?: number): void {
+  public setSelectedTask(taskId?: number): void {
     if (taskId === undefined) {
       taskId = this.currentTaskSelectedId;
     }
@@ -73,7 +83,7 @@ export class TaskService {
    * 
    * @param {Category} category - Category - The category that selected.
    */
-  setSelectedCategory(category: Category): void {
+  public setSelectedCategory(category: Category): void {
     this.selectedCategory.next(category);
   }
 
@@ -83,7 +93,7 @@ export class TaskService {
    * 
    * @param {any} event - any - The event object that is passed to the function.
    */
-  completedIconMouseIn(event: any): void {
+  public completedIconMouseIn(event: any): void {
     if (this.hasClass(event, this.constant.COMPLETED_MOUSE_OUT)) {
       event.target.className = this.constant.COMPLETED_MOUSE_IN;
     }
@@ -95,7 +105,7 @@ export class TaskService {
    * 
    * @param {any} event - any - This is the event that is triggered when the mouse is over the icon.
    */
-  completedIconMouseOut(event: any): void {
+  public completedIconMouseOut(event: any): void {
     if (this.hasClass(event, this.constant.COMPLETED_MOUSE_IN)) {
       event.target.className = this.constant.COMPLETED_MOUSE_OUT;
     }
@@ -107,7 +117,7 @@ export class TaskService {
    * 
    * @param {Task} task - Task - this is the task that is being passed in from the HTML.
    */
-  importantStatus(task: Task): void {
+  public importantStatus(task: Task): void {
     if (task.isImportant === false) {
       task.isImportant = true;
       task.categoryIds.push(2);
@@ -126,7 +136,7 @@ export class TaskService {
    * 
    * @param {Task} task - Task - this is the task that is being passed in from the HTML.
    */
-  changeCompletedStatus(task: Task): void {
+  public changeCompletedStatus(task: Task): void {
     if (task.isCompleted == true) {
       task.isCompleted = false;
     } else {
@@ -137,14 +147,14 @@ export class TaskService {
     })
   }
 
-/**
- * Checks if the className of the event.target is equal to the className passed in as a parameter.
- * 
- * @param {any} event - any - this is the event that is triggered when the user clicks on the element.
- * @param {string} className - The class name to check for.
- * @return {boolean} - the className of the event.target.
- */
-  hasClass(event: any, className: string): boolean {
+  /**
+   * Checks if the className of the event.target is equal to the className passed in as a parameter.
+   * 
+   * @param {any} event - any - this is the event that is triggered when the user clicks on the element.
+   * @param {string} className - The class name to check for.
+   * @return {boolean} - the className of the event.target.
+   */
+  private hasClass(event: any, className: string): boolean {
     return event.target.className === className;
   }
 
@@ -152,7 +162,7 @@ export class TaskService {
    * If the left container is visible, hide it and apply the required class to the center container.
    * If the left container is hidden, show it and apply the required class to the center container
    */
-  toggleMenuAction(): void {
+  public toggleMenuAction(): void {
     if (this.viewLeftContainer === true) {
       this.viewLeftContainer = false;
       if (this.viewRightContainer === false) {
@@ -174,7 +184,7 @@ export class TaskService {
    * Makes the right container view and check the left Container is visible or not and 
    * set the center container class accordingly to left container.
    */
-  rightContainerView(): void {
+  public rightContainerView(): void {
     this.viewRightContainer = true;
     if (this.viewLeftContainer === true) {
       this.applyClassCenter = this.constant.CENTER_VIEW;
@@ -187,7 +197,7 @@ export class TaskService {
    * Makes the right container hide and check the left Container is visible or not and 
    * set the center container class accordingly to left container.
    */
-  hideRightContainer(): void {
+  public hideRightContainer(): void {
     this.viewRightContainer = false;
     if (this.viewLeftContainer === true) {
       this.applyClassCenter = this.constant.DEFAULT_VIEW;
